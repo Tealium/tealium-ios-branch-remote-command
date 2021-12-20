@@ -1,0 +1,36 @@
+PODS:
+  - Branch (1.40.1)
+  - tealium-swift/Core (2.4.6)
+  - tealium-swift/Lifecycle (2.4.6):
+    - tealium-swift/Core
+  - tealium-swift/RemoteCommands (2.4.6):
+    - tealium-swift/Core
+  - tealium-swift/TagManagement (2.4.6):
+    - tealium-swift/Core
+  - TealiumBranch (1.0.0):
+    - Branch (~> 1.40.1)
+    - tealium-swift/Core (~> 2.4.6)
+    - tealium-swift/RemoteCommands (~> 2.4.6)
+    - tealium-swift/TagManagement (~> 2.4.6)
+
+DEPENDENCIES:
+  - tealium-swift/Lifecycle (~> 2.1)
+  - TealiumBranch (from `../`)
+
+SPEC REPOS:
+  trunk:
+    - Branch
+    - tealium-swift
+
+EXTERNAL SOURCES:
+  TealiumBranch:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  Branch: e9cf368f79b6da7537fd1866b81037aec32ceb5b
+  tealium-swift: 4e3d50e04e79eabd84b272d066659f5234d74b55
+  TealiumBranch: 4af7dff4a7acda02f6512f9e072f7e2a2c352f61
+
+PODFILE CHECKSUM: e8f173e27b7123bdffdd61d57e13235123854077
+
+COCOAPODS: 1.11.2
