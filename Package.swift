@@ -11,8 +11,8 @@ let package = Package(
             targets: ["TealiumBranch"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/tealium/tealium-swift", from: "2.4.6"),
-        .package(url: "https://github.com/BranchMetrics/ios-branch-deep-linking-attribution", from: "1.40.1")
+        .package(url: "https://github.com/tealium/tealium-swift", from: "2.6"),
+        .package(url: "https://github.com/BranchMetrics/ios-branch-deep-linking-attribution", from: "1.40")
     ],
     targets: [
         .target(

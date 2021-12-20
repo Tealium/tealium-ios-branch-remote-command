@@ -18,6 +18,9 @@ import Branch
 public class BranchRemoteCommand: RemoteCommand {
     
     var branchInstance: BranchCommand
+    override public var version: String? {
+        return BranchConstants.version
+    }
     
     public init(branchInstance: BranchCommand = BranchInstance(), type: RemoteCommandType = .webview) {
         self.branchInstance = branchInstance
