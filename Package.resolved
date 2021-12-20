@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Branch",
+        "repositoryURL": "https://github.com/BranchMetrics/ios-branch-deep-linking-attribution",
+        "state": {
+          "branch": null,
+          "revision": "8c9d7db8f4bb788b41a5143dba3addc52799a868",
+          "version": "1.40.2"
+        }
+      },
+      {
+        "package": "TealiumSwift",
+        "repositoryURL": "https://github.com/tealium/tealium-swift",
+        "state": {
+          "branch": null,
+          "revision": "9bd74f09c780862de61101bd147b1c6b232f98ce",
+          "version": "2.5.1"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

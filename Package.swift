@@ -11,13 +11,14 @@ let package = Package(
             targets: ["TealiumBranch"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/tealium/tealium-swift", from: "2.6"),
-        .package(url: "https://github.com/BranchMetrics/ios-branch-deep-linking-attribution", from: "1.40")
+        .package(url: "https://github.com/tealium/tealium-swift", from: "2.5.0"),
+        .package(url: "https://github.com/BranchMetrics/ios-branch-deep-linking-attribution", from: "1.40.1")
     ],
     targets: [
         .target(
             name: "TealiumBranch",
-            dependencies: []),
+            dependencies: [],
+            path: "Sources"),
         .testTarget(
             name: "TealiumBranchTests",
             dependencies: ["TealiumBranch"]),
