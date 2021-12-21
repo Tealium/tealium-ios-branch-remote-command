@@ -12,7 +12,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/tealium/tealium-swift", from: "2.5.0"),
-        .package(url: "https://github.com/BranchMetrics/ios-branch-deep-linking-attribution", from: "1.40.1")
+        .package(url: "https://github.com/BranchMetrics/ios-branch-sdk-spm", from: "1.40.1")
     ],
     targets: [
         .target(

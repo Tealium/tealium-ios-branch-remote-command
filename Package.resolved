@@ -3,10 +3,10 @@
     "pins": [
       {
         "package": "Branch",
-        "repositoryURL": "https://github.com/BranchMetrics/ios-branch-deep-linking-attribution",
+        "repositoryURL": "https://github.com/BranchMetrics/ios-branch-sdk-spm",
         "state": {
           "branch": null,
-          "revision": "8c9d7db8f4bb788b41a5143dba3addc52799a868",
+          "revision": "234290086ebd7193838313b8b0f90e3e14428c48",
           "version": "1.40.2"
         }
       },
