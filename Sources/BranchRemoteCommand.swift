@@ -11,7 +11,6 @@ import Branch
     import TealiumSwift
 #else
     import TealiumCore
-    import TealiumTagManagement
     import TealiumRemoteCommands
 #endif
 
