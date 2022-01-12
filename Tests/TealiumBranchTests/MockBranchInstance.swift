@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Branch
 @testable import TealiumBranch
 
 class MockBranchInstance: BranchCommand {
@@ -22,6 +23,10 @@ class MockBranchInstance: BranchCommand {
     
     func sendEvent(eventName: String, parameters: [String : Any]) {
         sendEventCount += 1
+    }
+    
+    func sendEvent(event: BranchStandardEvent, parameters: [String : Any]) {
+        sendEvent(eventName: event.rawValue, parameters: parameters)
     }
     
     func setIdentity(id: String) {

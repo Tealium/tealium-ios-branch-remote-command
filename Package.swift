@@ -14,16 +14,16 @@ let package = Package(
             targets: ["TealiumBranch"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/tealium/tealium-swift", from: "2.6.0"),
-        .package(url: "https://github.com/BranchMetrics/ios-branch-sdk-spm", from: "1.40.1")
+        .package(name: "TealiumSwift", url: "https://github.com/tealium/tealium-swift", .upToNextMajor(from: "2.6.0")),
+        .package(name: "Branch", url: "https://github.com/BranchMetrics/ios-branch-sdk-spm", .upToNextMajor(from: "1.40.1"))
     ],
     targets: [
         .target(
             name: "TealiumBranch",
             dependencies: [
-                .product(name: "TealiumCore", package: "tealium-swift"),
-                .product(name: "TealiumRemoteCommands", package: "tealium-swift"),
-                .product(name: "Branch", package: "ios-branch-sdk-spm")
+                .product(name: "TealiumCore", package: "TealiumSwift"),
+                .product(name: "TealiumRemoteCommands", package: "TealiumSwift"),
+                .product(name: "Branch", package: "Branch")
             ],
             path: "Sources"),
         .testTarget(
