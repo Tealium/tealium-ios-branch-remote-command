@@ -1,49 +1,33 @@
 PODS:
   - Branch (1.40.1)
-  - tealium-swift/Attribution (2.5.1):
+  - tealium-swift/Core (2.9.1)
+  - tealium-swift/Lifecycle (2.9.1):
     - tealium-swift/Core
-  - tealium-swift/Collect (2.5.1):
+  - tealium-swift/RemoteCommands (2.9.1):
     - tealium-swift/Core
-  - tealium-swift/Core (2.5.1)
-  - tealium-swift/Lifecycle (2.5.1):
-    - tealium-swift/Core
-  - tealium-swift/RemoteCommands (2.5.1):
-    - tealium-swift/Core
-  - tealium-swift/TagManagement (2.5.1):
-    - tealium-swift/Core
-  - TealiumBranch (1.0.0):
+  - TealiumBranch (1.1.0):
     - Branch (~> 1.40)
-    - tealium-swift/Core (~> 2.4)
-    - tealium-swift/RemoteCommands (~> 2.4)
-    - tealium-swift/TagManagement (~> 2.4)
+    - tealium-swift/Core (~> 2.9)
+    - tealium-swift/RemoteCommands (~> 2.9)
 
 DEPENDENCIES:
-  - tealium-swift/Attribution (from `https://github.com/Tealium/tealium-swift.git`, branch `mt-779`)
-  - tealium-swift/Collect (from `https://github.com/Tealium/tealium-swift.git`, branch `mt-779`)
-  - tealium-swift/Lifecycle (from `https://github.com/Tealium/tealium-swift.git`, branch `mt-779`)
+  - tealium-swift/Lifecycle (~> 2.6)
   - TealiumBranch (from `../`)
 
 SPEC REPOS:
   trunk:
     - Branch
+    - tealium-swift
 
 EXTERNAL SOURCES:
-  tealium-swift:
-    :branch: mt-779
-    :git: https://github.com/Tealium/tealium-swift.git
   TealiumBranch:
     :path: "../"
 
-CHECKOUT OPTIONS:
-  tealium-swift:
-    :commit: db174d69eb581f944268257038cfde8b54fc4b43
-    :git: https://github.com/Tealium/tealium-swift.git
-
 SPEC CHECKSUMS:
-  Branch: e9cf368f79b6da7537fd1866b81037aec32ceb5b
-  tealium-swift: a7c0f2b6bff641abb1818efbcf22598c99af0517
-  TealiumBranch: caf10ba7e32cb4b1a02bff04b151f3f58f0232f2
+  Branch: dff731289fdda63d8648d8339dc05076a1b88881
+  tealium-swift: 137769254e97d4c9f7ed6e16e0768b40888e6452
+  TealiumBranch: de6d63eebc418a8db74b94d18aee521248fd5548
 
-PODFILE CHECKSUM: 93e5bd15fc4ee7f6ff5658c41d830eb3390aed16
+PODFILE CHECKSUM: 3b53fd752a178bb62b378166462f948e7bd1fa12
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.11.3
