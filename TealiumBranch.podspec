@@ -2,7 +2,7 @@ Pod::Spec.new do |spec|
 
   # ―――  Spec Metadata  ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   spec.name         = "TealiumBranch"
-  spec.version      = "1.1.0"
+  spec.version      = "1.2.0"
   spec.summary      = "Tealium Swift and Branch integration"
   spec.description  = <<-DESC
   Tealium's integration with Branch for iOS.
@@ -17,7 +17,7 @@ Pod::Spec.new do |spec|
   spec.social_media_url    = "https://twitter.com/tealium"
 
   # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-  spec.platform     = :ios, "11.0"
+  spec.platform     = :ios, "12.0"
   spec.swift_version = "5.0"
 
   # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -27,8 +27,8 @@ Pod::Spec.new do |spec|
   spec.source_files  = "Sources/*.{swift}"
 
   # ――― Project Settings ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-  spec.ios.dependency 'tealium-swift/Core', ' ~> 2.9'
-  spec.ios.dependency 'tealium-swift/RemoteCommands', ' ~> 2.9'
+  spec.ios.dependency 'tealium-swift/Core', ' ~> 2.12'
+  spec.ios.dependency 'tealium-swift/RemoteCommands', ' ~> 2.12'
   spec.ios.dependency 'Branch', ' ~> 1.40'
 
 end
