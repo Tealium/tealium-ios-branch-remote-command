@@ -1,17 +1,17 @@
 PODS:
   - Branch (1.40.1)
-  - tealium-swift/Core (2.9.1)
-  - tealium-swift/Lifecycle (2.9.1):
+  - tealium-swift/Core (2.12.2)
+  - tealium-swift/Lifecycle (2.12.2):
     - tealium-swift/Core
-  - tealium-swift/RemoteCommands (2.9.1):
+  - tealium-swift/RemoteCommands (2.12.2):
     - tealium-swift/Core
-  - TealiumBranch (1.1.0):
+  - TealiumBranch (1.2.0):
     - Branch (~> 1.40)
-    - tealium-swift/Core (~> 2.9)
-    - tealium-swift/RemoteCommands (~> 2.9)
+    - tealium-swift/Core (~> 2.12)
+    - tealium-swift/RemoteCommands (~> 2.12)
 
 DEPENDENCIES:
-  - tealium-swift/Lifecycle (~> 2.6)
+  - tealium-swift/Lifecycle (~> 2.12)
   - TealiumBranch (from `../`)
 
 SPEC REPOS:
@@ -25,9 +25,9 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Branch: dff731289fdda63d8648d8339dc05076a1b88881
-  tealium-swift: 137769254e97d4c9f7ed6e16e0768b40888e6452
-  TealiumBranch: de6d63eebc418a8db74b94d18aee521248fd5548
+  tealium-swift: 4b7e3dda42d7c1de6acb769abad9920346d17d43
+  TealiumBranch: d28c99a06256d42f5563664a4558e7782337ec65
 
-PODFILE CHECKSUM: 3b53fd752a178bb62b378166462f948e7bd1fa12
+PODFILE CHECKSUM: 516e7f57ed844f266336d7bb35b3e362b40b1420
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.15.2
