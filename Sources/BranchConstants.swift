@@ -14,7 +14,7 @@ enum BranchConstants {
     static let debug = "debug"
     static let seperator: Character = ","
     static let errorPRefix = "TealiumBranch Error: "
-    static let version = "1.2.0"
+    static let version = "2.0.0"
     
     struct EventKeys {
         static let branchUniversalObjectProperties = "buo"

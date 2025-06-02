@@ -14,7 +14,7 @@ let package = Package(
             targets: ["TealiumBranch"]),
     ],
     dependencies: [
-        .package(name: "TealiumSwift", url: "https://github.com/tealium/tealium-swift", .upToNextMajor(from: "2.12.0")),
+        .package(name: "TealiumSwift", url: "https://github.com/tealium/tealium-swift", .upToNextMajor(from: "2.17.0")),
         .package(name: "Branch", url: "https://github.com/BranchMetrics/ios-branch-sdk-spm", .upToNextMajor(from: "1.40.1"))
     ],
     targets: [
@@ -25,9 +25,12 @@ let package = Package(
                 .product(name: "TealiumRemoteCommands", package: "TealiumSwift"),
                 .product(name: "Branch", package: "Branch")
             ],
-            path: "Sources"),
+            path: "Sources"
+        ),
         .testTarget(
             name: "TealiumBranchTests",
-            dependencies: ["TealiumBranch"]),
+            dependencies: ["TealiumBranch"],
+            path: "Tests"
+        )
     ]
 )
