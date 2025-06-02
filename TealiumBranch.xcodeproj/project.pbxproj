@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -20,8 +20,8 @@
 		15AE1C4F29A4D1BD005DA723 /* TealiumCore.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15AE1C4B29A4D1BD005DA723 /* TealiumCore.xcframework */; };
 		15AE1C5029A4D1BD005DA723 /* TealiumRemoteCommands.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15AE1C4C29A4D1BD005DA723 /* TealiumRemoteCommands.xcframework */; };
 		15AE1C5129A4D1BD005DA723 /* TealiumRemoteCommands.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15AE1C4C29A4D1BD005DA723 /* TealiumRemoteCommands.xcframework */; };
-		15AE1C5229A4D1BD005DA723 /* Branch.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15AE1C4D29A4D1BD005DA723 /* Branch.xcframework */; };
-		15AE1C5329A4D1BD005DA723 /* Branch.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15AE1C4D29A4D1BD005DA723 /* Branch.xcframework */; };
+		15AE1C5229A4D1BD005DA723 /* BranchSDK.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15AE1C4D29A4D1BD005DA723 /* BranchSDK.xcframework */; };
+		15AE1C5329A4D1BD005DA723 /* BranchSDK.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15AE1C4D29A4D1BD005DA723 /* BranchSDK.xcframework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,9 +45,9 @@
 		15AE1C4429A4CEC6005DA723 /* BranchRemoteCommandTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BranchRemoteCommandTests.swift; path = Tests/TealiumBranchTests/BranchRemoteCommandTests.swift; sourceTree = SOURCE_ROOT; };
 		15AE1C4529A4CEC6005DA723 /* MockBranchInstance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockBranchInstance.swift; path = Tests/TealiumBranchTests/MockBranchInstance.swift; sourceTree = SOURCE_ROOT; };
 		15AE1C4629A4CEC7005DA723 /* BranchInstanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BranchInstanceTests.swift; path = Tests/TealiumBranchTests/BranchInstanceTests.swift; sourceTree = SOURCE_ROOT; };
-		15AE1C4B29A4D1BD005DA723 /* TealiumCore.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = TealiumCore.xcframework; path = Carthage/Build/TealiumCore.xcframework; sourceTree = "<group>"; };
-		15AE1C4C29A4D1BD005DA723 /* TealiumRemoteCommands.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = TealiumRemoteCommands.xcframework; path = Carthage/Build/TealiumRemoteCommands.xcframework; sourceTree = "<group>"; };
-		15AE1C4D29A4D1BD005DA723 /* Branch.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Branch.xcframework; path = Carthage/Build/Branch.xcframework; sourceTree = "<group>"; };
+		15AE1C4B29A4D1BD005DA723 /* TealiumCore.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:XC939GDC9P:Tealium"; lastKnownFileType = wrapper.xcframework; name = TealiumCore.xcframework; path = Carthage/Build/TealiumCore.xcframework; sourceTree = "<group>"; };
+		15AE1C4C29A4D1BD005DA723 /* TealiumRemoteCommands.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:XC939GDC9P:Tealium"; lastKnownFileType = wrapper.xcframework; name = TealiumRemoteCommands.xcframework; path = Carthage/Build/TealiumRemoteCommands.xcframework; sourceTree = "<group>"; };
+		15AE1C4D29A4D1BD005DA723 /* BranchSDK.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = BranchSDK.xcframework; path = Carthage/Build/BranchSDK.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,7 +56,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				15AE1C4E29A4D1BD005DA723 /* TealiumCore.xcframework in Frameworks */,
-				15AE1C5229A4D1BD005DA723 /* Branch.xcframework in Frameworks */,
+				15AE1C5229A4D1BD005DA723 /* BranchSDK.xcframework in Frameworks */,
 				15AE1C5029A4D1BD005DA723 /* TealiumRemoteCommands.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -68,7 +68,7 @@
 				15AE1C5129A4D1BD005DA723 /* TealiumRemoteCommands.xcframework in Frameworks */,
 				15AE1C4F29A4D1BD005DA723 /* TealiumCore.xcframework in Frameworks */,
 				15AE1C3B29A4CEAC005DA723 /* TealiumBranch.framework in Frameworks */,
-				15AE1C5329A4D1BD005DA723 /* Branch.xcframework in Frameworks */,
+				15AE1C5329A4D1BD005DA723 /* BranchSDK.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,7 +119,7 @@
 		15AE1C4A29A4D03C005DA723 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				15AE1C4D29A4D1BD005DA723 /* Branch.xcframework */,
+				15AE1C4D29A4D1BD005DA723 /* BranchSDK.xcframework */,
 				15AE1C4B29A4D1BD005DA723 /* TealiumCore.xcframework */,
 				15AE1C4C29A4D1BD005DA723 /* TealiumRemoteCommands.xcframework */,
 			);

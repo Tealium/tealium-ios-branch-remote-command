@@ -8,7 +8,7 @@
 import XCTest
 @testable import TealiumBranch
 import TealiumRemoteCommands
-import Branch
+import BranchSDK
 
 class BranchInstanceTests: XCTestCase {
 

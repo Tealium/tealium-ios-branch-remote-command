@@ -5,7 +5,7 @@
 //  Created by Tyler Rister on 10/18/21.
 //
 
-import Branch
+import BranchSDK
 import Foundation
 #if COCOAPODS
     import TealiumSwift

@@ -56,10 +56,4 @@ class TealiumHelper {
         let tealiumEvent = TealiumEvent(title, dataLayer: data)
         TealiumHelper.shared.tealium?.track(tealiumEvent)
     }
-    
-    // Provide access to Branch instance for direct operations
-    // TODO: Should be removed? 
-    class func getBranchInstance() -> BranchCommand? {
-        return TealiumHelper.shared.branchRemoteCommand?.branchInstance
-    }
 }
