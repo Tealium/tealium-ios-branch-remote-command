@@ -4,7 +4,8 @@
       "enable_logging": true,
       "branch_dev_key": "branch_key",
       "collect_device_id": true
-    }
+    },
+    "debug": true
   },
   "mappings": {
     "tealium_event": "event.description",

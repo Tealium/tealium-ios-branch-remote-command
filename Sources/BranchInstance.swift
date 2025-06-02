@@ -16,7 +16,8 @@ import Foundation
 
 
 public protocol BranchCommand {
-    func initialize(payload: [String: Any])
+    func onReady(_ onReady: @escaping () -> Void)
+    func initialize(payload: [String: Any], launchOptions: [UIApplication.LaunchOptionsKey: Any]?)
     func sendEvent(eventName: String, parameters: [String: Any])
     func sendEvent(event: BranchStandardEvent, parameters: [String: Any])
     func setIdentity(id: String)
@@ -26,12 +27,11 @@ public protocol BranchCommand {
 
 public class BranchInstance: BranchCommand, TealiumRegistration {
     
+    private var _onReady = TealiumReplaySubject<Void>(cacheSize: 1)
+    
     public init() { }
     
-    public func initialize(payload: [String: Any]) {
-        let branchInstance = Branch.getInstance()
-        branchInstance.initSession(launchOptions: [:])
-        
+    public func initialize(payload: [String: Any], launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) {
         let settings = payload[BranchConstants.Config.settings] as? [String: Any]
         let logging = settings?[BranchConstants.Config.enableLogging]
         let branchKey = settings?[BranchConstants.Config.devKey]
@@ -40,10 +40,23 @@ public class BranchInstance: BranchCommand, TealiumRegistration {
             Branch.setBranchKey(branchKey)
         }
         
-        if let logging = logging as? Bool {
-            if logging {
-                branchInstance.enableLogging()
+        DispatchQueue.main.async {
+            let branchInstance = Branch.getInstance()
+            branchInstance.initSession(launchOptions: launchOptions ?? [:])
+            
+            if let logging = logging as? Bool {
+                if logging {
+                    branchInstance.enableLogging()
+                }
             }
+            
+            self._onReady.publish()
+        }
+    }
+
+    public func onReady(_ onReady: @escaping () -> Void) {
+        TealiumQueues.secureMainThreadExecution {
+            self._onReady.subscribeOnce(onReady)
         }
     }
     
