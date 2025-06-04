@@ -128,7 +128,11 @@ extension BranchEvent {
                     break
                 }
                 let stringDict = customDataDict.mapValues { "\($0)" }
-                self.customData = stringDict
+                var currentData = self.customData
+                for (key, value) in stringDict {
+                    currentData[key] = value
+                }
+                self.customData = currentData
             default:
                 var currentData = self.customData
                 currentData[key] = "\(value)"
