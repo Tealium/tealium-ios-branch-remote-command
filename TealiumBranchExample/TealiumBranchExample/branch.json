@@ -2,7 +2,7 @@
   "config": {
     "settings": {
       "enable_logging": true,
-      "branch_dev_key": "branch_key",
+      "branch_dev_key": "YOUR_BRANCH_KEY_HERE",
       "branch_api_base_url": "https://api.branch.io",
       "enable_dma_compliance": false,
       "consumer_protection_level": "standard",

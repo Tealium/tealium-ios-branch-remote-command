@@ -2,6 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<!-- Branch Configuration -->
+	<key>branch_key</key>
+	<dict>
+		<key>test</key>
+		<string>YOUR_BRANCH_KEY_HERE</string>
+		<key>live</key>
+		<string>YOUR_LIVE_BRANCH_KEY_HERE</string>
+	</dict>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
