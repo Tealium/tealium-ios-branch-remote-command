@@ -337,7 +337,7 @@ class BranchRemoteCommandTests: XCTestCase {
         let payload: [String: Any] = [
             "command_name": "registerpluginname",
             "plugin_name": "TealiumBranch",
-            "plugin_version": "3.0.0"
+            "plugin_version": "2.0.0"
         ]
         branchCommand.processRemoteCommand(with: payload)
         XCTAssertEqual(1, branchInstance.registerPluginNameCount)

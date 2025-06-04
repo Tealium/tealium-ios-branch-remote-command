@@ -199,7 +199,6 @@ public class BranchRemoteCommand: RemoteCommand {
                 branchInstance.disableAdNetworkCallouts(disable: disable)
             case BranchConstants.Commands.resetUserSession:
                 branchInstance.resetUserSession()
-            // Additional Configuration & Debugging
             case BranchConstants.Commands.validateSDKIntegration:
                 branchInstance.validateSDKIntegration()
             case BranchConstants.Commands.setDeepLinkDebugMode:
@@ -259,8 +258,6 @@ public class BranchRemoteCommand: RemoteCommand {
                     break
                 }
                 branchInstance.setReferrerGbraidValidityWindow(validityWindow: validityWindow)
-            
-            // Content Indexing Functions
             case BranchConstants.Commands.listOnSpotlight:
                 guard let buoData = payload[BranchConstants.EventKeys.branchUniversalObjectProperties] as? [String: Any] else {
                     if debug {

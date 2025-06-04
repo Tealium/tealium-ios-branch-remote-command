@@ -54,7 +54,6 @@ class TypeChecker {
         } else if let value = value as? String {
             return T.encodeFrom(value) as? T
         } else {
-            // Handle numeric conversions safely
             switch T.self {
             case is UInt.Type:
                 if let intValue = value as? Int, intValue >= 0 {
@@ -131,7 +130,6 @@ extension BranchEvent {
                 let stringDict = customDataDict.mapValues { "\($0)" }
                 self.customData = stringDict
             default:
-                // Add to existing customData dictionary
                 var currentData = self.customData
                 currentData[key] = "\(value)"
                 self.customData = currentData

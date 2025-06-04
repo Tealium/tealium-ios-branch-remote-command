@@ -22,50 +22,26 @@ public protocol BranchCommand {
     func sendCustomEvent(eventName: String, parameters: [String: Any])
     func setIdentity(id: String)
     func logout()
-    
-    // Deep Link Handling Functions
     func handleDeepLink(url: String) -> Bool
-    
-    // Content Indexing Functions (simple versions only)
     func listOnSpotlight(buo: [String: Any])
     func removeFromSpotlight(buo: [String: Any])
-    
-    // User Data Functions
     func clearUserIdentity()
-    
-    // Modern Branch Features (1.39.0+)
     func handleATTAuthorizationStatus(status: UInt)
-    func setRequestMetadataKey(key: String, value: String) 
-    
-    // Consumer Protection & Modern Features (3.0.0+)
+    func setRequestMetadataKey(key: String, value: String)
     func setConsumerProtectionAttributionLevel(level: String)
     func setCustomServerURL(url: String)
     func setSafetrackAPIURL(url: String)
-    
-    // Partner Parameters Support
     func addFacebookPartnerParameter(name: String, value: String)
     func addSnapPartnerParameter(name: String, value: String)
     func clearPartnerParameters()
-    
-    // Network & Timing Configuration
     func setNetworkTimeout(timeout: Double)
     func setMaxRetries(retries: Int)
     func setRetryInterval(interval: Double)
-    
-    // DMA Compliance & Custom Logging (3.2.0+)
     func setDMACompliance(eeaRegion: Bool, adPersonalizationConsent: Bool, adUserDataUsageConsent: Bool)
     func enableLoggingAtLevel(level: String)
-    
-    // ODM Info Support
     func setODMInfo(info: String, firstOpenTimestamp: Date?)
-    
-    // EU Endpoints
     func useEUEndpoints()
-    
-    // Ad Network Configuration
     func disableAdNetworkCallouts(disable: Bool)
-    
-    // Additional Configuration & Debugging
     func resetUserSession()
     func validateSDKIntegration()
     func setDeepLinkDebugMode(debugParams: [String: Any])
@@ -88,17 +64,14 @@ public class BranchInstance: BranchCommand, TealiumRegistration {
         let logging = settings?[BranchConstants.Config.enableLogging]
         let branchKey = settings?[BranchConstants.Config.devKey]
         
-        // SDK-3.4.0: Support for setting Branch API base URL through branch.json
         if let customAPIURL = settings?[BranchConstants.Config.branchAPIBaseURL] as? String {
             Branch.setAPIUrl(customAPIURL)
         }
         
-        // SDK-3.8.0: Support for setting Consumer Protection Attribution Level through branch.json
         if let consumerProtectionLevel = settings?[BranchConstants.Config.consumerProtectionLevel] as? String {
             setConsumerProtectionAttributionLevel(level: consumerProtectionLevel)
         }
         
-        // CORE-2088: Check pasteboard on install (must be before initSession)
         if let checkPasteboard = settings?[BranchConstants.Config.checkPasteboardOnInstall] as? Bool,
            checkPasteboard == true {
             Branch.getInstance().checkPasteboardOnInstall()
@@ -193,9 +166,7 @@ public class BranchInstance: BranchCommand, TealiumRegistration {
         guard let nsUrl = URL(string: url) else { return false }
         return Branch.getInstance().handleDeepLink(nsUrl)
     }
-    
-    // MARK: - User Data Functions
-    
+
     public func clearUserIdentity() {
         Branch.getInstance().logout()
     }
@@ -275,12 +246,10 @@ public class BranchInstance: BranchCommand, TealiumRegistration {
         Branch.getInstance().useEUEndpoints()
     }
     
-    // Ad Network Configuration
     public func disableAdNetworkCallouts(disable: Bool) {
         Branch.getInstance().disableAdNetworkCallouts(disable)
     }
-    
-    // Additional Configuration & Debugging
+
     public func resetUserSession() {
         Branch.getInstance().resetUserSession()
     }
