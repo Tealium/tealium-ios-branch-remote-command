@@ -63,21 +63,225 @@ public class BranchRemoteCommand: RemoteCommand {
             switch (command) {
             case BranchConstants.Commands.initialize:
                 branchInstance.initialize(payload: payload, launchOptions: self.launchOptions)
-            case BranchConstants.Commands.setUserId:
+            case BranchConstants.Commands.setIdentity:
                 guard let id = payload[BranchConstants.EventKeys.userId] as? String else {
                     if debug {
-                        print("\(BranchConstants.errorPRefix)setUserId - \(BranchConstants.EventKeys.userId) must be populated.")
+                        print("\(BranchConstants.errorPRefix)setIdentity - \(BranchConstants.EventKeys.userId) must be populated.")
                     }
                     break
                 }
                 branchInstance.setIdentity(id: id)
             case BranchConstants.Commands.logout:
                 branchInstance.logout()
+            case BranchConstants.Commands.handleDeepLink:
+                guard let urlString = payload[BranchConstants.EventKeys.deepLinkURL] as? String else {
+                    if debug {
+                        print("\(BranchConstants.errorPRefix)handleDeepLink - deep_link_url must be provided")
+                    }
+                    break
+                }
+                let _ = branchInstance.handleDeepLink(url: urlString)
+            case BranchConstants.Commands.handleATTAuthorizationStatus:
+                guard let status = payload[BranchConstants.EventKeys.attStatus] as? UInt else {
+                    if debug {
+                        print("\(BranchConstants.errorPRefix)handleATTAuthorizationStatus - att_status must be provided")
+                    }
+                    break
+                }
+                branchInstance.handleATTAuthorizationStatus(status: status)
+            case BranchConstants.Commands.setRequestMetadataKey:
+                guard let key = payload[BranchConstants.EventKeys.metadataKey] as? String,
+                      let value = payload[BranchConstants.EventKeys.metadataValue] as? String else {
+                    if debug {
+                        print("\(BranchConstants.errorPRefix)setRequestMetadataKey - metadata_key and metadata_value must be provided")
+                    }
+                    break
+                }
+                branchInstance.setRequestMetadataKey(key: key, value: value)
+            case BranchConstants.Commands.setConsumerProtectionAttributionLevel:
+                guard let level = payload[BranchConstants.EventKeys.consumerProtectionLevel] as? String else {
+                    if debug {
+                        print("\(BranchConstants.errorPRefix)setConsumerProtectionAttributionLevel - consumer_protection_level must be provided")
+                    }
+                    break
+                }
+                branchInstance.setConsumerProtectionAttributionLevel(level: level)
+            case BranchConstants.Commands.setCustomServerURL:
+                guard let url = payload[BranchConstants.EventKeys.customServerURL] as? String else {
+                    if debug {
+                        print("\(BranchConstants.errorPRefix)setCustomServerURL - custom_server_url must be provided")
+                    }
+                    break
+                }
+                branchInstance.setCustomServerURL(url: url)
+            case BranchConstants.Commands.setSafetrackAPIURL:
+                guard let url = payload[BranchConstants.EventKeys.safetrackAPIURL] as? String else {
+                    if debug {
+                        print("\(BranchConstants.errorPRefix)setSafetrackAPIURL - safetrack_api_url must be provided")
+                    }
+                    break
+                }
+                branchInstance.setSafetrackAPIURL(url: url)
+            case BranchConstants.Commands.useEUEndpoints:
+                branchInstance.useEUEndpoints()
+            case BranchConstants.Commands.setODMInfo:
+                guard let odmInfo = payload[BranchConstants.EventKeys.odmInfo] as? String else {
+                    if debug {
+                        print("\(BranchConstants.errorPRefix)setODMInfo - odm_info (String) must be provided")
+                    }
+                    break
+                }
+                var firstOpenTimestamp: Date? = nil
+                if let timestamp = payload[BranchConstants.EventKeys.firstOpenTimestamp] as? Double {
+                    firstOpenTimestamp = Date(timeIntervalSince1970: timestamp / 1000.0)
+                }
+                branchInstance.setODMInfo(info: odmInfo, firstOpenTimestamp: firstOpenTimestamp)
+            // DMA Compliance & Custom Logging (3.2.0+)
+            case BranchConstants.Commands.setDMACompliance:
+                let eeaRegion = payload[BranchConstants.EventKeys.dmaEEARegion] as? Bool ?? false
+                let adPersonalizationConsent = payload[BranchConstants.EventKeys.dmaAdPersonalizationConsent] as? Bool ?? false
+                let adUserDataUsageConsent = payload[BranchConstants.EventKeys.dmaAdUserDataUsageConsent] as? Bool ?? false
+                branchInstance.setDMACompliance(eeaRegion: eeaRegion, 
+                                               adPersonalizationConsent: adPersonalizationConsent, 
+                                               adUserDataUsageConsent: adUserDataUsageConsent)
+            case BranchConstants.Commands.enableLoggingAtLevel:
+                let logLevel = payload[BranchConstants.EventKeys.logLevel] as? String ?? "debug"
+                branchInstance.enableLoggingAtLevel(level: logLevel)
+            // Partner Parameters & Network Configuration
+            case BranchConstants.Commands.addFacebookPartnerParameter:
+                guard let name = payload[BranchConstants.EventKeys.parameterName] as? String,
+                      let value = payload[BranchConstants.EventKeys.parameterValue] as? String else {
+                    if debug {
+                        print("\(BranchConstants.errorPRefix)addFacebookPartnerParameter - parameter_name and parameter_value must be provided")
+                    }
+                    break
+                }
+                branchInstance.addFacebookPartnerParameter(name: name, value: value)
+            case BranchConstants.Commands.addSnapPartnerParameter:
+                guard let name = payload[BranchConstants.EventKeys.parameterName] as? String,
+                      let value = payload[BranchConstants.EventKeys.parameterValue] as? String else {
+                    if debug {
+                        print("\(BranchConstants.errorPRefix)addSnapPartnerParameter - parameter_name and parameter_value must be provided")
+                    }
+                    break
+                }
+                branchInstance.addSnapPartnerParameter(name: name, value: value)
+            case BranchConstants.Commands.clearPartnerParameters:
+                branchInstance.clearPartnerParameters()
+            case BranchConstants.Commands.setRetryInterval:
+                guard let interval = payload[BranchConstants.EventKeys.retryInterval] as? Double else {
+                    if debug {
+                        print("\(BranchConstants.errorPRefix)setRetryInterval - retry_interval must be provided")
+                    }
+                    break
+                }
+                branchInstance.setRetryInterval(interval: interval)
+            case BranchConstants.Commands.setMaxRetries:
+                guard let retries = payload[BranchConstants.EventKeys.maxRetries] as? Int else {
+                    if debug {
+                        print("\(BranchConstants.errorPRefix)setMaxRetries - max_retries must be provided")
+                    }
+                    break
+                }
+                branchInstance.setMaxRetries(retries: retries)
+            case BranchConstants.Commands.setNetworkTimeout:
+                guard let timeout = payload[BranchConstants.EventKeys.networkTimeout] as? Double else {
+                    if debug {
+                        print("\(BranchConstants.errorPRefix)setNetworkTimeout - network_timeout must be provided")
+                    }
+                    break
+                }
+                branchInstance.setNetworkTimeout(timeout: timeout)
+            case BranchConstants.Commands.disableAdNetworkCallouts:
+                let disable = payload[BranchConstants.EventKeys.disableAdNetworkCallouts] as? Bool ?? false
+                branchInstance.disableAdNetworkCallouts(disable: disable)
+            case BranchConstants.Commands.resetUserSession:
+                branchInstance.resetUserSession()
+            // Additional Configuration & Debugging
+            case BranchConstants.Commands.validateSDKIntegration:
+                branchInstance.validateSDKIntegration()
+            case BranchConstants.Commands.setDeepLinkDebugMode:
+                guard let debugParams = payload[BranchConstants.EventKeys.debugParams] as? [String: Any] else {
+                    if debug {
+                        print("\(BranchConstants.errorPRefix)setDeepLinkDebugMode - debug_params must be provided")
+                    }
+                    break
+                }
+                branchInstance.setDeepLinkDebugMode(debugParams: debugParams)
+            case BranchConstants.Commands.setAllowedSchemes:
+                guard let schemes = payload[BranchConstants.EventKeys.allowedSchemes] as? [String] else {
+                    if debug {
+                        print("\(BranchConstants.errorPRefix)setAllowedSchemes - allowed_schemes array must be provided")
+                    }
+                    break
+                }
+                branchInstance.setAllowedSchemes(schemes: schemes)
+            case BranchConstants.Commands.addAllowedScheme:
+                guard let scheme = payload[BranchConstants.EventKeys.scheme] as? String else {
+                    if debug {
+                        print("\(BranchConstants.errorPRefix)addAllowedScheme - scheme must be provided")
+                    }
+                    break
+                }
+                branchInstance.addAllowedScheme(scheme: scheme)
+            case BranchConstants.Commands.setUrlPatternsToIgnore:
+                guard let patterns = payload[BranchConstants.EventKeys.urlPatterns] as? [String] else {
+                    if debug {
+                        print("\(BranchConstants.errorPRefix)setUrlPatternsToIgnore - url_patterns array must be provided")
+                    }
+                    break
+                }
+                branchInstance.setUrlPatternsToIgnore(patterns: patterns)
+            case BranchConstants.Commands.setAppClipAppGroup:
+                guard let appGroup = payload[BranchConstants.EventKeys.appGroup] as? String else {
+                    if debug {
+                        print("\(BranchConstants.errorPRefix)setAppClipAppGroup - app_group must be provided")
+                    }
+                    break
+                }
+                branchInstance.setAppClipAppGroup(appGroup: appGroup)
+            case BranchConstants.Commands.registerPluginName:
+                guard let name = payload[BranchConstants.EventKeys.pluginName] as? String,
+                      let version = payload[BranchConstants.EventKeys.pluginVersion] as? String else {
+                    if debug {
+                        print("\(BranchConstants.errorPRefix)registerPluginName - plugin_name and plugin_version must be provided")
+                    }
+                    break
+                }
+                branchInstance.registerPluginName(name: name, version: version)
+            case BranchConstants.Commands.setReferrerGbraidValidityWindow:
+                guard let validityWindow = payload[BranchConstants.EventKeys.gbraidValidityWindow] as? Double else {
+                    if debug {
+                        print("\(BranchConstants.errorPRefix)setReferrerGbraidValidityWindow - gbraid_validity_window must be provided")
+                    }
+                    break
+                }
+                branchInstance.setReferrerGbraidValidityWindow(validityWindow: validityWindow)
+            
+            // Content Indexing Functions
+            case BranchConstants.Commands.listOnSpotlight:
+                guard let buoData = payload[BranchConstants.EventKeys.branchUniversalObjectProperties] as? [String: Any] else {
+                    if debug {
+                        print("\(BranchConstants.errorPRefix)listOnSpotlight - BUO data must be provided")
+                    }
+                    break
+                }
+                branchInstance.listOnSpotlight(buo: buoData)
+            case BranchConstants.Commands.removeFromSpotlight:
+                guard let buoData = payload[BranchConstants.EventKeys.branchUniversalObjectProperties] as? [String: Any] else {
+                    if debug {
+                        print("\(BranchConstants.errorPRefix)removeFromSpotlight - BUO data must be provided")
+                    }
+                    break
+                }
+                branchInstance.removeFromSpotlight(buo: buoData)
+            case BranchConstants.Commands.clearUserIdentity:
+                branchInstance.clearUserIdentity()
             default:
                 if let standardEvent = BranchStandardEvent.eventFromEventName(eventName: command) {
                     branchInstance.sendEvent(event: standardEvent, parameters: payload)
                 } else {
-                    branchInstance.sendEvent(eventName: command, parameters: payload)
+                    branchInstance.sendCustomEvent(eventName: command, parameters: payload)
                 }
             }
         }
@@ -102,6 +306,10 @@ extension BranchStandardEvent {
                 return BranchStandardEvent.completeTutorial
             case .completeregistration:
                 return BranchStandardEvent.completeRegistration
+            case .initiatestream:
+                return BranchStandardEvent.initiateStream
+            case .completestream:
+                return BranchStandardEvent.completeStream
             case .initiatepurchase:
                 return BranchStandardEvent.initiatePurchase
             case .invite:
@@ -134,6 +342,10 @@ extension BranchStandardEvent {
                 return BranchStandardEvent.viewItem
             case .viewitems:
                 return BranchStandardEvent.viewItems
+            case .optin:
+                return BranchStandardEvent.optIn
+            case .optout:
+                return BranchStandardEvent.optOut
             }
         } else {
             return nil
