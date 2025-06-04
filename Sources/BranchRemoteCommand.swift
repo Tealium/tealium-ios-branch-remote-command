@@ -7,6 +7,8 @@
 
 import Foundation
 import BranchSDK
+import UIKit
+
 #if COCOAPODS
     import TealiumSwift
 #else
@@ -66,7 +68,7 @@ public class BranchRemoteCommand: RemoteCommand {
             case BranchConstants.Commands.setIdentity:
                 guard let id = payload[BranchConstants.EventKeys.userId] as? String else {
                     if debug {
-                        print("\(BranchConstants.errorPRefix)setIdentity - \(BranchConstants.EventKeys.userId) must be populated.")
+                        print("\(BranchConstants.errorPrefix)setIdentity - \(BranchConstants.EventKeys.userId) must be populated.")
                     }
                     break
                 }
@@ -76,15 +78,15 @@ public class BranchRemoteCommand: RemoteCommand {
             case BranchConstants.Commands.handleDeepLink:
                 guard let urlString = payload[BranchConstants.EventKeys.deepLinkURL] as? String else {
                     if debug {
-                        print("\(BranchConstants.errorPRefix)handleDeepLink - deep_link_url must be provided")
+                        print("\(BranchConstants.errorPrefix)handleDeepLink - deep_link_url must be provided")
                     }
                     break
                 }
                 let _ = branchInstance.handleDeepLink(url: urlString)
             case BranchConstants.Commands.handleATTAuthorizationStatus:
-                guard let status = payload[BranchConstants.EventKeys.attStatus] as? UInt else {
+                guard let status: UInt = TypeChecker.getTypedPropertyForValue(value: payload[BranchConstants.EventKeys.attStatus] ?? 0) else {
                     if debug {
-                        print("\(BranchConstants.errorPRefix)handleATTAuthorizationStatus - att_status must be provided")
+                        print("\(BranchConstants.errorPrefix)handleATTAuthorizationStatus - att_status must be provided")
                     }
                     break
                 }
@@ -93,7 +95,7 @@ public class BranchRemoteCommand: RemoteCommand {
                 guard let key = payload[BranchConstants.EventKeys.metadataKey] as? String,
                       let value = payload[BranchConstants.EventKeys.metadataValue] as? String else {
                     if debug {
-                        print("\(BranchConstants.errorPRefix)setRequestMetadataKey - metadata_key and metadata_value must be provided")
+                        print("\(BranchConstants.errorPrefix)setRequestMetadataKey - metadata_key and metadata_value must be provided")
                     }
                     break
                 }
@@ -101,7 +103,7 @@ public class BranchRemoteCommand: RemoteCommand {
             case BranchConstants.Commands.setConsumerProtectionAttributionLevel:
                 guard let level = payload[BranchConstants.EventKeys.consumerProtectionLevel] as? String else {
                     if debug {
-                        print("\(BranchConstants.errorPRefix)setConsumerProtectionAttributionLevel - consumer_protection_level must be provided")
+                        print("\(BranchConstants.errorPrefix)setConsumerProtectionAttributionLevel - consumer_protection_level must be provided")
                     }
                     break
                 }
@@ -109,7 +111,7 @@ public class BranchRemoteCommand: RemoteCommand {
             case BranchConstants.Commands.setCustomServerURL:
                 guard let url = payload[BranchConstants.EventKeys.customServerURL] as? String else {
                     if debug {
-                        print("\(BranchConstants.errorPRefix)setCustomServerURL - custom_server_url must be provided")
+                        print("\(BranchConstants.errorPrefix)setCustomServerURL - custom_server_url must be provided")
                     }
                     break
                 }
@@ -117,7 +119,7 @@ public class BranchRemoteCommand: RemoteCommand {
             case BranchConstants.Commands.setSafetrackAPIURL:
                 guard let url = payload[BranchConstants.EventKeys.safetrackAPIURL] as? String else {
                     if debug {
-                        print("\(BranchConstants.errorPRefix)setSafetrackAPIURL - safetrack_api_url must be provided")
+                        print("\(BranchConstants.errorPrefix)setSafetrackAPIURL - safetrack_api_url must be provided")
                     }
                     break
                 }
@@ -127,7 +129,7 @@ public class BranchRemoteCommand: RemoteCommand {
             case BranchConstants.Commands.setODMInfo:
                 guard let odmInfo = payload[BranchConstants.EventKeys.odmInfo] as? String else {
                     if debug {
-                        print("\(BranchConstants.errorPRefix)setODMInfo - odm_info (String) must be provided")
+                        print("\(BranchConstants.errorPrefix)setODMInfo - odm_info (String) must be provided")
                     }
                     break
                 }
@@ -152,7 +154,7 @@ public class BranchRemoteCommand: RemoteCommand {
                 guard let name = payload[BranchConstants.EventKeys.parameterName] as? String,
                       let value = payload[BranchConstants.EventKeys.parameterValue] as? String else {
                     if debug {
-                        print("\(BranchConstants.errorPRefix)addFacebookPartnerParameter - parameter_name and parameter_value must be provided")
+                        print("\(BranchConstants.errorPrefix)addFacebookPartnerParameter - parameter_name and parameter_value must be provided")
                     }
                     break
                 }
@@ -161,7 +163,7 @@ public class BranchRemoteCommand: RemoteCommand {
                 guard let name = payload[BranchConstants.EventKeys.parameterName] as? String,
                       let value = payload[BranchConstants.EventKeys.parameterValue] as? String else {
                     if debug {
-                        print("\(BranchConstants.errorPRefix)addSnapPartnerParameter - parameter_name and parameter_value must be provided")
+                        print("\(BranchConstants.errorPrefix)addSnapPartnerParameter - parameter_name and parameter_value must be provided")
                     }
                     break
                 }
@@ -171,7 +173,7 @@ public class BranchRemoteCommand: RemoteCommand {
             case BranchConstants.Commands.setRetryInterval:
                 guard let interval = payload[BranchConstants.EventKeys.retryInterval] as? Double else {
                     if debug {
-                        print("\(BranchConstants.errorPRefix)setRetryInterval - retry_interval must be provided")
+                        print("\(BranchConstants.errorPrefix)setRetryInterval - retry_interval must be provided")
                     }
                     break
                 }
@@ -179,7 +181,7 @@ public class BranchRemoteCommand: RemoteCommand {
             case BranchConstants.Commands.setMaxRetries:
                 guard let retries = payload[BranchConstants.EventKeys.maxRetries] as? Int else {
                     if debug {
-                        print("\(BranchConstants.errorPRefix)setMaxRetries - max_retries must be provided")
+                        print("\(BranchConstants.errorPrefix)setMaxRetries - max_retries must be provided")
                     }
                     break
                 }
@@ -187,7 +189,7 @@ public class BranchRemoteCommand: RemoteCommand {
             case BranchConstants.Commands.setNetworkTimeout:
                 guard let timeout = payload[BranchConstants.EventKeys.networkTimeout] as? Double else {
                     if debug {
-                        print("\(BranchConstants.errorPRefix)setNetworkTimeout - network_timeout must be provided")
+                        print("\(BranchConstants.errorPrefix)setNetworkTimeout - network_timeout must be provided")
                     }
                     break
                 }
@@ -203,7 +205,7 @@ public class BranchRemoteCommand: RemoteCommand {
             case BranchConstants.Commands.setDeepLinkDebugMode:
                 guard let debugParams = payload[BranchConstants.EventKeys.debugParams] as? [String: Any] else {
                     if debug {
-                        print("\(BranchConstants.errorPRefix)setDeepLinkDebugMode - debug_params must be provided")
+                        print("\(BranchConstants.errorPrefix)setDeepLinkDebugMode - debug_params must be provided")
                     }
                     break
                 }
@@ -211,7 +213,7 @@ public class BranchRemoteCommand: RemoteCommand {
             case BranchConstants.Commands.setAllowedSchemes:
                 guard let schemes = payload[BranchConstants.EventKeys.allowedSchemes] as? [String] else {
                     if debug {
-                        print("\(BranchConstants.errorPRefix)setAllowedSchemes - allowed_schemes array must be provided")
+                        print("\(BranchConstants.errorPrefix)setAllowedSchemes - allowed_schemes array must be provided")
                     }
                     break
                 }
@@ -219,7 +221,7 @@ public class BranchRemoteCommand: RemoteCommand {
             case BranchConstants.Commands.addAllowedScheme:
                 guard let scheme = payload[BranchConstants.EventKeys.scheme] as? String else {
                     if debug {
-                        print("\(BranchConstants.errorPRefix)addAllowedScheme - scheme must be provided")
+                        print("\(BranchConstants.errorPrefix)addAllowedScheme - scheme must be provided")
                     }
                     break
                 }
@@ -227,7 +229,7 @@ public class BranchRemoteCommand: RemoteCommand {
             case BranchConstants.Commands.setUrlPatternsToIgnore:
                 guard let patterns = payload[BranchConstants.EventKeys.urlPatterns] as? [String] else {
                     if debug {
-                        print("\(BranchConstants.errorPRefix)setUrlPatternsToIgnore - url_patterns array must be provided")
+                        print("\(BranchConstants.errorPrefix)setUrlPatternsToIgnore - url_patterns array must be provided")
                     }
                     break
                 }
@@ -235,7 +237,7 @@ public class BranchRemoteCommand: RemoteCommand {
             case BranchConstants.Commands.setAppClipAppGroup:
                 guard let appGroup = payload[BranchConstants.EventKeys.appGroup] as? String else {
                     if debug {
-                        print("\(BranchConstants.errorPRefix)setAppClipAppGroup - app_group must be provided")
+                        print("\(BranchConstants.errorPrefix)setAppClipAppGroup - app_group must be provided")
                     }
                     break
                 }
@@ -244,7 +246,7 @@ public class BranchRemoteCommand: RemoteCommand {
                 guard let name = payload[BranchConstants.EventKeys.pluginName] as? String,
                       let version = payload[BranchConstants.EventKeys.pluginVersion] as? String else {
                     if debug {
-                        print("\(BranchConstants.errorPRefix)registerPluginName - plugin_name and plugin_version must be provided")
+                        print("\(BranchConstants.errorPrefix)registerPluginName - plugin_name and plugin_version must be provided")
                     }
                     break
                 }
@@ -252,7 +254,7 @@ public class BranchRemoteCommand: RemoteCommand {
             case BranchConstants.Commands.setReferrerGbraidValidityWindow:
                 guard let validityWindow = payload[BranchConstants.EventKeys.gbraidValidityWindow] as? Double else {
                     if debug {
-                        print("\(BranchConstants.errorPRefix)setReferrerGbraidValidityWindow - gbraid_validity_window must be provided")
+                        print("\(BranchConstants.errorPrefix)setReferrerGbraidValidityWindow - gbraid_validity_window must be provided")
                     }
                     break
                 }
@@ -262,7 +264,7 @@ public class BranchRemoteCommand: RemoteCommand {
             case BranchConstants.Commands.listOnSpotlight:
                 guard let buoData = payload[BranchConstants.EventKeys.branchUniversalObjectProperties] as? [String: Any] else {
                     if debug {
-                        print("\(BranchConstants.errorPRefix)listOnSpotlight - BUO data must be provided")
+                        print("\(BranchConstants.errorPrefix)listOnSpotlight - BUO data must be provided")
                     }
                     break
                 }
@@ -270,7 +272,7 @@ public class BranchRemoteCommand: RemoteCommand {
             case BranchConstants.Commands.removeFromSpotlight:
                 guard let buoData = payload[BranchConstants.EventKeys.branchUniversalObjectProperties] as? [String: Any] else {
                     if debug {
-                        print("\(BranchConstants.errorPRefix)removeFromSpotlight - BUO data must be provided")
+                        print("\(BranchConstants.errorPrefix)removeFromSpotlight - BUO data must be provided")
                     }
                     break
                 }

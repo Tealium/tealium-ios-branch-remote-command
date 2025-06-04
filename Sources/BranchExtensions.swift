@@ -54,6 +54,25 @@ class TypeChecker {
         } else if let value = value as? String {
             return T.encodeFrom(value) as? T
         } else {
+            // Handle numeric conversions safely
+            switch T.self {
+            case is UInt.Type:
+                if let intValue = value as? Int, intValue >= 0 {
+                    return UInt(intValue) as? T
+                }
+            case is Int.Type:
+                if let uintValue = value as? UInt {
+                    return Int(uintValue) as? T
+                }
+            case is Double.Type:
+                if let intValue = value as? Int {
+                    return Double(intValue) as? T
+                } else if let uintValue = value as? UInt {
+                    return Double(uintValue) as? T
+                }
+            default:
+                break
+            }
             return nil
         }
     }
@@ -88,8 +107,8 @@ extension BranchEvent {
                     break
                 }
                 self.shipping = NSDecimalNumber(value: doubleValue)
-            case BranchConstants.BranchEventProperties.description:
-                self.description = TypeChecker.getTypedPropertyForValue(value: value)
+            case BranchConstants.BranchEventProperties.eventDescription:
+                self.eventDescription = TypeChecker.getTypedPropertyForValue(value: value)
             case BranchConstants.BranchEventProperties.searchQuery:
                 self.searchQuery = TypeChecker.getTypedPropertyForValue(value: value)
             case BranchConstants.BranchEventProperties.adType:
@@ -213,7 +232,7 @@ extension BranchContentMetadata {
                 guard let schemaString: String = TypeChecker.getTypedPropertyForValue(value: value) else {
                     break
                 }
-                self.contentSchema = BranchContentSchema.init(rawValue: schemaString.lowercased())
+                self.contentSchema = BranchContentSchema.init(rawValue: schemaString.uppercased())
             default:
                 break
             }

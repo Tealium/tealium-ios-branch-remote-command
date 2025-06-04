@@ -57,21 +57,66 @@
     "shipping": "event.shipping",
     "alias": "event.alias",
     "transaction_id": "event.transaction_id",
-    "description": "event.description",
+    "event_description": "event.event_description",
     "search_query": "event.search_query",
     "ad_type": "event.ad_type",
     "revenue": "event.revenue",
+    "currency": "event.currency",
     "affiliation": "event.affiliation",
-    "custom_data": "event.custom_data"
+    "custom_data": "event.custom_data",
+    
+    "//": "=== USER MANAGEMENT PARAMETERS ===",
+    "user_id": "user_id",
+    
+    "//": "=== DEEP LINKING PARAMETERS ===",
+    "deep_link_url": "deep_link_url",
+    "scheme": "scheme",
+    "allowed_schemes": "allowed_schemes",
+    "url_patterns": "url_patterns",
+    "debug_params": "debug_params",
+    
+    "//": "=== ATT & PRIVACY PARAMETERS ===",
+    "att_status": "att_status",
+    
+    "//": "=== DMA COMPLIANCE PARAMETERS ===",
+    "dma_eea_region": "dma_eea_region",
+    "dma_ad_personalization_consent": "dma_ad_personalization_consent",
+    "dma_ad_user_data_usage_consent": "dma_ad_user_data_usage_consent",
+    
+    "//": "=== METADATA & ODM PARAMETERS ===",
+    "metadata_key": "metadata_key",
+    "metadata_value": "metadata_value",
+    "odm_info": "odm_info",
+    "first_open_timestamp": "first_open_timestamp",
+    
+    "//": "=== NETWORK CONFIGURATION PARAMETERS ===",
+    "custom_server_url": "custom_server_url",
+    "safetrack_api_url": "safetrack_api_url",
+    "network_timeout": "network_timeout",
+    "max_retries": "max_retries",
+    "retry_interval": "retry_interval",
+    "disable_ad_network_callouts": "disable_ad_network_callouts",
+    "gbraid_validity_window": "gbraid_validity_window",
+    
+    "//": "=== PARTNER PARAMETERS ===",
+    "parameter_name": "parameter_name",
+    "parameter_value": "parameter_value",
+    
+    "//": "=== LOGGING & DEBUGGING PARAMETERS ===",
+    "log_level": "log_level",
+    
+    "//": "=== APP CONFIGURATION PARAMETERS ===",
+    "app_group": "app_group",
+    "plugin_name": "plugin_name",
+    "plugin_version": "plugin_version"
   },
   "commands": {
     "//": "=== CORE FUNCTIONALITY ===",
     "launch": "initialize",
-    "user_login": "login,setuserid",
-    "user_logout": "logout",
     
     "//": "=== BRANCH STANDARD EVENTS ===",
     "_comment_standard_events": "Commerce Events",
+    "login": "login",
     "cart_add": "addtocart",
     "wishlist_add": "addtowishlist",
     "payment": "addpaymentinfo",
@@ -97,7 +142,7 @@
     "user_register": "completeregistration",
     "tutorial_complete": "completetutorial",
     "level_up": "achievelevel",
-    "achievement": "unlockachievement",
+    "unlock_achievement": "unlockachievement",
     "email_signup": "subscribe",
     "invite": "invite",
     "opt_in": "optin",
@@ -107,7 +152,8 @@
     "teal_custom_event": "teal_custom_event",
     
     "//": "=== USER MANAGEMENT ===",
-    "set_user_identity": "setuseridentity",
+    "logout": "logout",
+    "set_identity": "setidentity",
     "clear_user_identity": "clearuseridentity",
     
     "//": "=== DEEP LINKING ===", 
@@ -144,12 +190,14 @@
     
     "//": "=== DEBUGGING & UTILITIES ===",
     "set_metadata": "setrequestmetadatakey",
-    "enable_logging_level": "enableloggingtlevel",
+    "enable_logging_level": "enableloggingatlevel",
     "reset_user_session": "resetusersession",
     "validate_sdk": "validatesdkintegration",
     "set_app_group": "setappclipappgroup",
     "register_plugin": "registerpluginname",
-    "check_branch_link": "isbranchlink"
+    
+    "//": "=== PUSH NOTIFICATIONS ===",
+    "handle_push_notification": "handlepushnotification"
   }
 }
 

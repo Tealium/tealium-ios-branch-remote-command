@@ -246,7 +246,7 @@ class BranchRemoteCommandTests: XCTestCase {
     
     func testEnableLoggingAtLevel() {
         let payload: [String: Any] = [
-            "command_name": "enableloggingtlevel",
+            "command_name": "enableloggingatlevel",
             "log_level": "debug"
         ]
         branchCommand.processRemoteCommand(with: payload)

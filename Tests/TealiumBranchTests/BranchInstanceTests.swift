@@ -64,7 +64,7 @@ class BranchInstanceTests: XCTestCase {
             "tax": "12.50",
             "revenue": 14.99,
             "shipping": "3.50",
-            "description": "testDescription",
+            "event_description": "testDescription",
             "search_query": "testSearchQuery",
             "ad_type": "banner",
             "alias": "testAlias",
@@ -80,7 +80,7 @@ class BranchInstanceTests: XCTestCase {
         XCTAssertEqual(NSDecimalNumber(string: "12.50"), testEvent.tax)
         XCTAssertEqual(NSDecimalNumber(string: "14.99"), testEvent.revenue)
         XCTAssertEqual(NSDecimalNumber(string: "3.50"), testEvent.shipping)
-        XCTAssertEqual("testDescription", testEvent.description)
+        XCTAssertEqual("testDescription", testEvent.eventDescription)
         XCTAssertEqual("testSearchQuery", testEvent.searchQuery)
         XCTAssertEqual(BranchEventAdType.banner, testEvent.adType)
         XCTAssertEqual("testAlias", testEvent.alias)
@@ -125,7 +125,7 @@ class BranchInstanceTests: XCTestCase {
         let expect = expectation(description: "Test Content Metadata Mapping")
         let metadata: [String: Any] = [
             "quantity": 2.5,
-            "price": "19.99",
+            "price": 19.99,
             "currency_type": "EUR",
             "sku": "SKU123",
             "product_name": "Test Product",
@@ -146,14 +146,14 @@ class BranchInstanceTests: XCTestCase {
             "longitude": "-122.4194",
             "image_captions": ["Caption 1", "Caption 2"],
             "custom_metadata": ["custom_key": "custom_value"],
-            "content_schema": "PRODUCT"
+            "content_schema": "commerce_product"
         ]
         
         let metadataObject = BranchContentMetadata()
         metadataObject.addMetadataProperties(metadata: metadata)
         
         XCTAssertEqual(2.5, metadataObject.quantity)
-        XCTAssertEqual(NSDecimalNumber(string: "19.99"), metadataObject.price)
+        XCTAssertEqual(19.99, metadataObject.price)
         XCTAssertEqual(BNCCurrency.EUR, metadataObject.currency)
         XCTAssertEqual("SKU123", metadataObject.sku)
         XCTAssertEqual("Test Product", metadataObject.productName)
@@ -174,7 +174,7 @@ class BranchInstanceTests: XCTestCase {
         XCTAssertEqual(-122.4194, metadataObject.longitude)
         XCTAssertEqual(["Caption 1", "Caption 2"], metadataObject.imageCaptions)
         XCTAssertEqual("custom_value", metadataObject.customMetadata["custom_key"] as? String)
-        XCTAssertEqual(BranchContentSchema.product, metadataObject.contentSchema)
+        XCTAssertEqual(BranchContentSchema.commerceProduct, metadataObject.contentSchema)
         
         expect.fulfill()
         wait(for: [expect], timeout: 1.0)
