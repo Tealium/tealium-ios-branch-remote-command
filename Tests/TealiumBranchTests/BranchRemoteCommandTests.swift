@@ -387,4 +387,23 @@ class BranchRemoteCommandTests: XCTestCase {
         XCTAssertEqual(0, branchInstance.initializeCount)
         XCTAssertEqual(0, branchInstance.setIdentityCount)
     }
+
+    // MARK: - Push Notification Tests
+
+    func testHandlePushNotification() {
+        let userInfo: [AnyHashable: Any] = ["aps": ["alert": "Test notification"]]
+        let payload: [String: Any] = [
+            "command_name": "handlepushnotification",
+            "push_notification_user_info": userInfo
+        ]
+        branchCommand.processRemoteCommand(with: payload)
+        XCTAssertEqual(1, branchInstance.handlePushNotificationCount)
+        XCTAssertEqual(userInfo.count, branchInstance.lastPushNotificationUserInfo?.count)
+    }
+
+    func testHandlePushNotificationMissingUserInfo() {
+        let payload: [String: Any] = ["command_name": "handlepushnotification"]
+        branchCommand.processRemoteCommand(with: payload)
+        XCTAssertEqual(0, branchInstance.handlePushNotificationCount)
+    }
 }

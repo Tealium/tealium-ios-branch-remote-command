@@ -46,10 +46,9 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         // Handle Branch push notifications through Tealium
         let pushData: [String: Any] = [
-            "command_name": "handle_push_notification",
-            "push_data": userInfo
+            "push_notification_user_info": userInfo
         ]
-        TealiumHelper.trackEvent(title: "push_notification_received", data: pushData)
+        TealiumHelper.trackEvent(title: "handle_push_notification", data: pushData)
         print("📱 Push Notification: \(userInfo)")
         completionHandler(.newData)
     }

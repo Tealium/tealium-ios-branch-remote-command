@@ -71,6 +71,8 @@ enum BranchConstants {
         // Used in registerPluginName command
         static let pluginName = "plugin_name"
         static let pluginVersion = "plugin_version"
+        // Used in handlePushNotification command
+        static let pushNotificationUserInfo = "push_notification_user_info"
     }
     
     struct Config {
@@ -203,6 +205,7 @@ enum BranchConstants {
         static let setUrlPatternsToIgnore = "seturlpatternstoignore"
         static let setAppClipAppGroup = "setappclipappgroup"
         static let registerPluginName = "registerpluginname"
+        static let handlePushNotification = "handlepushnotification"
     }
     
     // Type-safe enum mappings

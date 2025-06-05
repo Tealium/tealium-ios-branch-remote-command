@@ -47,6 +47,7 @@ class MockBranchInstance: BranchCommand {
     var setAppClipAppGroupCount = 0
     var registerPluginNameCount = 0
     var setReferrerGbraidValidityWindowCount = 0
+    var handlePushNotificationCount = 0
     
     // Stored values for verification
     var lastUserId: String?
@@ -57,6 +58,7 @@ class MockBranchInstance: BranchCommand {
     var lastCustomServerURL: String?
     var lastNetworkTimeout: Double?
     var lastMaxRetries: Int?
+    var lastPushNotificationUserInfo: [AnyHashable: Any]?
     
     private var onReadyCallbacks: [() -> Void] = []
     
@@ -213,5 +215,10 @@ class MockBranchInstance: BranchCommand {
     
     func setReferrerGbraidValidityWindow(validityWindow: Double) {
         setReferrerGbraidValidityWindowCount += 1
+    }
+
+    func handlePushNotification(userInfo: [AnyHashable: Any]) {
+        handlePushNotificationCount += 1
+        lastPushNotificationUserInfo = userInfo
     }
 }

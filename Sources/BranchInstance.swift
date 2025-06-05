@@ -51,9 +51,10 @@ public protocol BranchCommand {
     func setAppClipAppGroup(appGroup: String)
     func registerPluginName(name: String, version: String)
     func setReferrerGbraidValidityWindow(validityWindow: Double)
+    func handlePushNotification(userInfo: [AnyHashable: Any])
 }
 
-public class BranchInstance: BranchCommand, TealiumRegistration {
+public class BranchInstance: BranchCommand {
     
     private var _onReady = TealiumReplaySubject<Void>(cacheSize: 1)
     
@@ -140,14 +141,6 @@ public class BranchInstance: BranchCommand, TealiumRegistration {
     
     public func logout() {
         Branch.getInstance().logout()
-    }
-    
-    public func registerPushToken(_ token: String) {
-        
-    }
-    
-    public func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        Branch.getInstance().handlePushNotification(userInfo)
     }
     
     public func listOnSpotlight(buo: [String: Any]) {
@@ -284,5 +277,9 @@ public class BranchInstance: BranchCommand, TealiumRegistration {
     
     public func setReferrerGbraidValidityWindow(validityWindow: Double) {
         Branch.setReferrerGbraidValidityWindow(validityWindow)
+    }
+    
+    public func handlePushNotification(userInfo: [AnyHashable: Any]) {
+        Branch.getInstance().handlePushNotification(userInfo)
     }
 }

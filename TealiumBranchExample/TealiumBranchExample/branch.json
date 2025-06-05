@@ -108,7 +108,10 @@
     "//": "=== APP CONFIGURATION PARAMETERS ===",
     "app_group": "app_group",
     "plugin_name": "plugin_name",
-    "plugin_version": "plugin_version"
+    "plugin_version": "plugin_version",
+    
+    "//": "=== PUSH NOTIFICATION PARAMETERS ===",
+    "push_notification_user_info": "push_notification_user_info"
   },
   "commands": {
     "//": "=== CORE FUNCTIONALITY ===",

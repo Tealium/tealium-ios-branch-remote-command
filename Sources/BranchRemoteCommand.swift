@@ -250,6 +250,14 @@ public class BranchRemoteCommand: RemoteCommand {
                     break
                 }
                 branchInstance.registerPluginName(name: name, version: version)
+            case BranchConstants.Commands.handlePushNotification:
+                guard let userInfo = payload[BranchConstants.EventKeys.pushNotificationUserInfo] as? [AnyHashable: Any] else {
+                    if debug {
+                        print("\(BranchConstants.errorPrefix)handlePushNotification - push_notification_user_info must be provided")
+                    }
+                    break
+                }
+                branchInstance.handlePushNotification(userInfo: userInfo)
             case BranchConstants.Commands.setReferrerGbraidValidityWindow:
                 guard let validityWindow = payload[BranchConstants.EventKeys.gbraidValidityWindow] as? Double else {
                     if debug {
