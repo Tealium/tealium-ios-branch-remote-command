@@ -2,8 +2,7 @@ Pod::Spec.new do |spec|
 
   # ―――  Spec Metadata  ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   spec.name         = "TealiumBranch"
-  spec.module_name  = "TealiumBranch"
-  spec.version      = "2.0.0"
+  spec.version      = "1.2.0"
   spec.summary      = "Tealium Swift and Branch integration"
   spec.description  = <<-DESC
   Tealium's integration with Branch for iOS.
@@ -19,7 +18,7 @@ Pod::Spec.new do |spec|
 
   # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   spec.platform     = :ios, "12.0"
-  spec.swift_version = "5.2"
+  spec.swift_version = "5.0"
 
   # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   spec.source       = { :git => "https://github.com/Tealium/tealium-ios-branch-remote-command.git", :tag => "#{spec.version}" }
@@ -28,8 +27,8 @@ Pod::Spec.new do |spec|
   spec.source_files  = "Sources/*.{swift}"
 
   # ――― Project Settings ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-  spec.ios.dependency 'tealium-swift/Core', ' ~> 2.17'
-  spec.ios.dependency 'tealium-swift/RemoteCommands', ' ~> 2.17'
-  spec.ios.dependency 'BranchSDK', ' ~> 3.12'
+  spec.ios.dependency 'tealium-swift/Core', ' ~> 2.12'
+  spec.ios.dependency 'tealium-swift/RemoteCommands', ' ~> 2.12'
+  spec.ios.dependency 'Branch', ' ~> 1.40'
 
 end

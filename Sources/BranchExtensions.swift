@@ -5,7 +5,7 @@
 //  Created by Tyler Rister on 10/18/21.
 //
 
-import BranchSDK
+import Branch
 import Foundation
 
 extension String {
@@ -54,24 +54,6 @@ class TypeChecker {
         } else if let value = value as? String {
             return T.encodeFrom(value) as? T
         } else {
-            switch T.self {
-            case is UInt.Type:
-                if let intValue = value as? Int, intValue >= 0 {
-                    return UInt(intValue) as? T
-                }
-            case is Int.Type:
-                if let uintValue = value as? UInt {
-                    return Int(uintValue) as? T
-                }
-            case is Double.Type:
-                if let intValue = value as? Int {
-                    return Double(intValue) as? T
-                } else if let uintValue = value as? UInt {
-                    return Double(uintValue) as? T
-                }
-            default:
-                break
-            }
             return nil
         }
     }
@@ -101,42 +83,12 @@ extension BranchEvent {
                     break
                 }
                 self.revenue = NSDecimalNumber(value: doubleValue)
-            case BranchConstants.BranchEventProperties.shipping:
-                guard let doubleValue: Double = TypeChecker.getTypedPropertyForValue(value: value) else {
-                    break
-                }
-                self.shipping = NSDecimalNumber(value: doubleValue)
-            case BranchConstants.BranchEventProperties.eventDescription:
+            case BranchConstants.BranchEventProperties.description:
                 self.eventDescription = TypeChecker.getTypedPropertyForValue(value: value)
             case BranchConstants.BranchEventProperties.searchQuery:
                 self.searchQuery = TypeChecker.getTypedPropertyForValue(value: value)
-            case BranchConstants.BranchEventProperties.adType:
-                guard let adTypeString: String = TypeChecker.getTypedPropertyForValue(value: value) else {
-                    break
-                }
-                if let adTypeMapping = BranchConstants.AdTypeMapping(rawValue: adTypeString.lowercased()) {
-                    self.adType = adTypeMapping.branchEventAdType
-                } else {
-                    self.adType = .none  // Default fallback
-                }
-            case BranchConstants.BranchEventProperties.alias:
-                self.alias = TypeChecker.getTypedPropertyForValue(value: value)
-            case BranchConstants.BranchEventProperties.transactionID:
-                self.transactionID = TypeChecker.getTypedPropertyForValue(value: value)
-            case BranchConstants.BranchEventProperties.customData:
-                guard let customDataDict = value as? [String: Any] else {
-                    break
-                }
-                let stringDict = customDataDict.mapValues { "\($0)" }
-                var currentData = self.customData
-                for (key, value) in stringDict {
-                    currentData[key] = value
-                }
-                self.customData = currentData
             default:
-                var currentData = self.customData
-                currentData[key] = "\(value)"
-                self.customData = currentData
+                self.customData[key] = TypeChecker.getTypedPropertyForValue(value: value)
             }
         }
     }
@@ -157,7 +109,7 @@ extension BranchContentMetadata {
                     break
                 }
                 self.price = NSDecimalNumber(value: doubleValue)
-            case BranchConstants.BranchMetadataProperties.currency_type:
+            case BranchConstants.BranchMetadataProperties.currencyType:
                 guard let value: String = TypeChecker.getTypedPropertyForValue(value: value) else {
                     break
                 }
@@ -225,16 +177,6 @@ extension BranchContentMetadata {
                     break
                 }
                 self.imageCaptions = NSMutableArray(array: imageCaptions)
-            case BranchConstants.BranchMetadataProperties.customMetadata:
-                guard let customData = value as? [String: Any] else {
-                    break
-                }
-                self.customMetadata = NSMutableDictionary(dictionary: customData)
-            case BranchConstants.BranchMetadataProperties.contentSchema:
-                guard let schemaString: String = TypeChecker.getTypedPropertyForValue(value: value) else {
-                    break
-                }
-                self.contentSchema = BranchContentSchema.init(rawValue: schemaString.uppercased())
             default:
                 break
             }
@@ -252,35 +194,10 @@ extension BranchUniversalObject {
                 self.canonicalUrl = TypeChecker.getTypedPropertyForValue(value: value)
             case BranchConstants.BranchUniversalObjectProperties.title:
                 self.title = TypeChecker.getTypedPropertyForValue(value: value)
-            case BranchConstants.BranchUniversalObjectProperties.contentDescription:
+            case BranchConstants.BranchUniversalObjectProperties.description:
                 self.contentDescription = TypeChecker.getTypedPropertyForValue(value: value)
             case BranchConstants.BranchUniversalObjectProperties.imageUrl:
                 self.imageUrl = TypeChecker.getTypedPropertyForValue(value: value)
-            case BranchConstants.BranchUniversalObjectProperties.creationDate:
-                guard let timeInterval: Double = TypeChecker.getTypedPropertyForValue(value: value) else {
-                    break
-                }
-                self.creationDate = Date(timeIntervalSince1970: timeInterval / 1000.0)
-            case BranchConstants.BranchUniversalObjectProperties.expirationDate:
-                guard let timeInterval: Double = TypeChecker.getTypedPropertyForValue(value: value) else {
-                    break
-                }
-                self.expirationDate = Date(timeIntervalSince1970: timeInterval / 1000.0)
-            case BranchConstants.BranchUniversalObjectProperties.locallyIndex:
-                guard let boolValue = value as? Bool else {
-                    break
-                }
-                self.locallyIndex = boolValue
-            case BranchConstants.BranchUniversalObjectProperties.publiclyIndex:
-                guard let boolValue = value as? Bool else {
-                    break
-                }
-                self.publiclyIndex = boolValue
-            case BranchConstants.BranchUniversalObjectProperties.keywords:
-                guard let keywordsArray = value as? [String] else {
-                    break
-                }
-                self.keywords = keywordsArray
             default:
                 break
             }
