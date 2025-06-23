@@ -1,2 +1,2 @@
-github "BranchMetrics/ios-branch-deep-linking" "1.45.2"
-github "tealium/tealium-swift" "2.9.1"
+github "BranchMetrics/ios-branch-deep-linking" "3.12.1"
+github "tealium/tealium-swift" "2.18.0"

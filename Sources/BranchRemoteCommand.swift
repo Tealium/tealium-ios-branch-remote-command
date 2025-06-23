@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import Branch
+import BranchSDK
 #if COCOAPODS
     import TealiumSwift
 #else
@@ -16,13 +16,18 @@ import Branch
 
 public class BranchRemoteCommand: RemoteCommand {
     
-    var branchInstance: BranchCommand
+    let branchInstance: BranchCommand
+    private let launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+    
     override public var version: String? {
         return BranchConstants.version
     }
     
-    public init(branchInstance: BranchCommand = BranchInstance(), type: RemoteCommandType = .webview) {
+    public init(type: RemoteCommandType = .webview,
+                branchInstance: BranchCommand = BranchInstance(),
+                launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) {
         self.branchInstance = branchInstance
+        self.launchOptions = launchOptions
         weak var weakSelf: BranchRemoteCommand?
         super.init(commandId: BranchConstants.commandId, description: BranchConstants.description, type: type, completion: { response in
                     guard let payload = response.payload else {
@@ -32,7 +37,11 @@ public class BranchRemoteCommand: RemoteCommand {
                 })
         weakSelf = self
     }
-    
+
+    public func onReady(_ onReady: @escaping () -> Void) {
+        self.branchInstance.onReady(onReady)
+    }
+
     func processRemoteCommand(with payload: [String: Any]) {
         guard let command = payload[BranchConstants.commandName] as? String else {
             return
@@ -42,7 +51,8 @@ public class BranchRemoteCommand: RemoteCommand {
         branchCommands.forEach { command in
             switch (command) {
             case BranchConstants.Commands.initialize:
-                branchInstance.initialize(payload: payload)
+                branchInstance.initialize(payload: payload, launchOptions: self.launchOptions)
+            // TODO: rename it to set identity to reflect function name
             case BranchConstants.Commands.setUserId:
                 guard let id = payload[BranchConstants.EventKeys.userId] as? String else {
                     break

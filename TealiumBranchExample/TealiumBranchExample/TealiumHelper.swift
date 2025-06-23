@@ -5,9 +5,9 @@
 //  Created by Tyler Rister on 10/18/21.
 //
 
-import Foundation
 import TealiumSwift
 import TealiumBranch
+import UIKit
 
 enum TealiumConfiguration {
     static let account = "tealiummobile"
@@ -15,31 +15,43 @@ enum TealiumConfiguration {
     static let environment = "dev"
 }
 
-class TealiumHelper {
+final class TealiumHelper {
+
     static let shared = TealiumHelper()
-    
-    let config = TealiumConfig(account: TealiumConfiguration.account, profile: TealiumConfiguration.profile, environment: TealiumConfiguration.environment)
-    
-    var tealium: Tealium?
-    
-    let branchRemoteCommand = BranchRemoteCommand(type: .local(file: "branch", bundle: Bundle.main))
     
     private init() {
         config.shouldUseRemotePublishSettings = false
         config.batchingEnabled = false
         config.remoteAPIEnabled = true
         config.logLevel = .info
-        config.collectors = [Collectors.Connectivity, Collectors.Lifecycle]
-        config.dispatchers = [//Dispatchers.TagManagement,
-                              Dispatchers.RemoteCommands]
-        
-        config.addRemoteCommand(branchRemoteCommand)
-        
-        tealium = Tealium(config: config)
+        config.collectors = [Collectors.Lifecycle]
+        config.dispatchers = [Dispatchers.RemoteCommands]
     }
 
-    class func start() {
-        _ = TealiumHelper.shared
+    let config = TealiumConfig(account: TealiumConfiguration.account,
+                               profile: TealiumConfiguration.profile,
+                               environment: TealiumConfiguration.environment)
+
+    var tealium: Tealium?
+    
+    // Branch Remote Command
+    var branchRemoteCommand: BranchRemoteCommand?
+    
+    func configure(with launchOptions: [UIApplication.LaunchOptionsKey: Any]?) {
+        // Create Branch remote command with launch options
+        branchRemoteCommand = BranchRemoteCommand(
+            type: .local(file: "branch", bundle: Bundle.main),
+            launchOptions: launchOptions
+        )
+        
+        // Set up initialization callback using Facebook pattern
+        branchRemoteCommand?.onReady {
+            print("Branch SDK is initialized and ready!")
+        }
+        
+        config.addRemoteCommand(branchRemoteCommand!)
+        
+        tealium = Tealium(config: config)
     }
 
     class func trackView(title: String, data: [String: Any]?) {

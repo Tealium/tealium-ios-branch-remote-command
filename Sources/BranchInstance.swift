@@ -5,8 +5,8 @@
 //  Created by Tyler Rister on 10/18/21.
 //
 
-import Branch
-import Foundation
+import BranchSDK
+import UIKit
 #if COCOAPODS
     import TealiumSwift
 #else
@@ -16,7 +16,8 @@ import Foundation
 
 
 public protocol BranchCommand {
-    func initialize(payload: [String: Any])
+    func onReady(_ onReady: @escaping () -> Void)
+    func initialize(payload: [String: Any], launchOptions: [UIApplication.LaunchOptionsKey: Any]?)
     func sendEvent(eventName: String, parameters: [String: Any])
     func sendEvent(event: BranchStandardEvent, parameters: [String: Any])
     func setIdentity(id: String)
@@ -26,12 +27,13 @@ public protocol BranchCommand {
 
 public class BranchInstance: BranchCommand, TealiumRegistration {
     
+    private var branchInstance: Branch?
+    private var _onReady = TealiumReplaySubject<Void>(cacheSize: 1)
+    
     public init() { }
     
-    public func initialize(payload: [String: Any]) {
-        let branchInstance = Branch.getInstance()
-        branchInstance.initSession(launchOptions: [:])
-        
+    // MARK: Initialize
+    public func initialize(payload: [String: Any], launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) {
         let settings = payload[BranchConstants.Config.settings] as? [String: Any]
         let logging = settings?[BranchConstants.Config.enableLogging]
         let branchKey = settings?[BranchConstants.Config.devKey]
@@ -40,11 +42,27 @@ public class BranchInstance: BranchCommand, TealiumRegistration {
             Branch.setBranchKey(branchKey)
         }
         
-            if let logging = logging as? Bool {
-                if logging {
-                branchInstance.enableLogging()
-                }
-            }
+        // Get the Branch instance
+        branchInstance = Branch.getInstance()
+        guard let branchInstance else { return }
+        
+        // Enable logging if requested
+        if let logging = logging as? Bool, logging {
+            // TODO: remove deprecated method
+            branchInstance.enableLogging()
+        }
+        
+        // Initialize session with launch options
+        branchInstance.initSession(launchOptions: launchOptions ?? [:])
+        
+        // Publish ready state following Facebook pattern
+        _onReady.publish()
+    }
+
+    public func onReady(_ onReady: @escaping () -> Void) {
+        TealiumQueues.secureMainThreadExecution {
+            self._onReady.subscribeOnce(onReady)
+        }
     }
     
     public func sendEvent(eventName: String, parameters: [String: Any]) {
@@ -80,23 +98,23 @@ public class BranchInstance: BranchCommand, TealiumRegistration {
     }
     
     public func setIdentity(id: String) {
-        Branch.getInstance().setIdentity(id)
+        branchInstance?.setIdentity(id)
     }
     
+    // TODO: remove deprecated method
     public func setOptOut(opt: Bool) {
         Branch.setTrackingDisabled(opt)
     }
     
     public func logout() {
-        Branch.getInstance().logout()
+        branchInstance?.logout()
     }
     
     public func registerPushToken(_ token: String) {
-        
+        // Push token registration can be implemented as needed
     }
 
     public func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        Branch.getInstance().handlePushNotification(userInfo)
+        branchInstance?.handlePushNotification(userInfo)
     }
-    
 }
