@@ -1,2 +1,2 @@
-github "BranchMetrics/ios-branch-deep-linking" ~> 3.12
-github "tealium/tealium-swift" ~> 2.17
+github "BranchMetrics/ios-branch-deep-linking-attribution" ~> 3.12
+github "tealium/tealium-swift" ~> 2.18

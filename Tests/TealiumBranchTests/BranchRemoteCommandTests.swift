@@ -5,9 +5,10 @@
 //  Created by Tyler Rister on 10/20/21.
 //
 
-import XCTest
-@testable import TealiumBranch
 import TealiumRemoteCommands
+import XCTest
+
+@testable import TealiumBranch
 
 class BranchRemoteCommandTests: XCTestCase {
 
@@ -28,7 +29,7 @@ class BranchRemoteCommandTests: XCTestCase {
     }
 
     func testOnReady() {
-        branchCommand.onReady { }  
+        branchCommand.onReady {}
         XCTAssertEqual(1, branchInstance.onReadyCallCount)
     }
 
@@ -41,7 +42,7 @@ class BranchRemoteCommandTests: XCTestCase {
         command.processRemoteCommand(with: ["command_name": "initialize"])
         waitForExpectations(timeout: 3.0)
     }
- 
+
     func testInitialize() {
         let payload: [String: Any] = ["command_name": "initialize"]
         branchCommand.processRemoteCommand(with: payload)
@@ -50,7 +51,7 @@ class BranchRemoteCommandTests: XCTestCase {
 
     func testSetIdentity() {
         let payload: [String: Any] = [
-            "command_name": "setuserid", "user_id": "testUserId"
+            "command_name": "setuserid", "user_id": "testUserId",
         ]
         branchCommand.processRemoteCommand(with: payload)
         XCTAssertEqual(1, branchInstance.setIdentityCount)
@@ -63,7 +64,7 @@ class BranchRemoteCommandTests: XCTestCase {
         branchCommand.processRemoteCommand(with: payload)
         XCTAssertEqual(0, branchInstance.setIdentityCount)
     }
-    
+
     func testLogout() {
         let payload: [String: Any] = [
             "command_name": "logout"
@@ -71,25 +72,27 @@ class BranchRemoteCommandTests: XCTestCase {
         branchCommand.processRemoteCommand(with: payload)
         XCTAssertEqual(1, branchInstance.logoutCount)
     }
-    
+
     func testSendEventWithBuoData() {
         let buoData: [String: Any] = [
             "canonical_identifier": "testIdentifier",
             "canonical_url": "testUrl",
             "title": "testTitle",
             "description": "testDescription",
-            "image_url": "testImageUrl"
+            "image_url": "testImageUrl",
         ]
         let payload: [String: Any] = [
             "command_name": "addtocart",
-            "buo": buoData
+            "buo": buoData,
         ]
         branchCommand.processRemoteCommand(with: payload)
         XCTAssertEqual(1, branchInstance.sendEventCount)
     }
-    
+
     func testSendEventWithCustomEventName() {
-        let payload: [String: Any] = ["command_name": "sendevent", "event_name": "testEvent"]
+        let payload: [String: Any] = [
+            "command_name": "sendevent", "event_name": "testEvent",
+        ]
         branchCommand.processRemoteCommand(with: payload)
         XCTAssertEqual(1, branchInstance.sendEventCount)
     }

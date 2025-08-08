@@ -15,7 +15,7 @@ enum BranchConstants {
     static let seperator: Character = ","
     static let errorPRefix = "TealiumBranch Error: "
     static let version = "2.0.0"
-    
+
     struct EventKeys {
         static let branchUniversalObjectProperties = "buo"
         static let branchMetadataProperties = "metadata"
@@ -23,40 +23,14 @@ enum BranchConstants {
         static let userId = "user_id"
         static let linkProperties = "link"
     }
-    
+
     struct Config {
         static let settings = "settings"
         static let devKey = "branch_dev_key"
         static let enableLogging = "enable_logging"
         static let collectDeviceId = "collect_device_id"
     }
-    
-    enum StandardEventNames: String {
-        case achievelevel = "achievelevel"
-        case addpaymentinfo = "addpaymentinfo"
-        case addtocart = "addtocart"
-        case addtowishlist = "addtowishlist"
-        case clickad = "clickad"
-        case completetutorial = "completetutorial"
-        case completeregistration = "completeregistration"
-        case initiatepurchase = "initiatepurchase"
-        case invite = "invite"
-        case login = "login"
-        case purchase = "purchase"
-        case rate = "rate"
-        case reserve = "reserve"
-        case search = "search"
-        case share = "share"
-        case spendcredits = "spendcredits"
-        case starttrial = "starttrial"
-        case subscribe = "subscribe"
-        case unlockachievement = "unlockachievement"
-        case viewad = "viewad"
-        case viewcart = "viewcart"
-        case viewitem = "viewitem"
-        case viewitems = "viewitems"
-    }
-    
+
     struct DeepLinkProperties {
         static let channel = "channel"
         static let feature = "feature"
@@ -65,7 +39,7 @@ enum BranchConstants {
         static let duration = "duration"
         static let controlParameters = "control_parameters"
     }
-    
+
     struct BranchUniversalObjectProperties {
         static let canonicalIdentifier = "canonical_identifier"
         static let canonicalUrl = "canonical_url"
@@ -74,7 +48,7 @@ enum BranchConstants {
         static let imageUrl = "image_url"
         static let contentMetadata = "content_metadata"
     }
-    
+
     struct BranchMetadataProperties {
         static let quantity = "quantity"
         static let price = "price"
@@ -98,7 +72,7 @@ enum BranchConstants {
         static let longitude = "longitude"
         static let imageCaptions = "image_captions"
     }
-    
+
     struct BranchEventProperties {
         static let affiliation = "affiliation"
         static let coupon = "coupon"
@@ -108,7 +82,7 @@ enum BranchConstants {
         static let description = "description"
         static let searchQuery = "search_query"
     }
-    
+
     struct Commands {
         static let initialize = "initialize"
         static let setUserId = "setuserid"

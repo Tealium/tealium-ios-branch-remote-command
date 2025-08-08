@@ -34,17 +34,14 @@ final class TealiumHelper {
 
     var tealium: Tealium?
     
-    // Branch Remote Command
     var branchRemoteCommand: BranchRemoteCommand?
-    
+ 
     func configure(with launchOptions: [UIApplication.LaunchOptionsKey: Any]?) {
-        // Create Branch remote command with launch options
         branchRemoteCommand = BranchRemoteCommand(
             type: .local(file: "branch", bundle: Bundle.main),
             launchOptions: launchOptions
         )
         
-        // Set up initialization callback using Facebook pattern
         branchRemoteCommand?.onReady {
             print("Branch SDK is initialized and ready!")
         }

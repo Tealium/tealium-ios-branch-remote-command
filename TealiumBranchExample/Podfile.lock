@@ -1,9 +1,9 @@
 PODS:
-  - BranchSDK (3.12.1)
-  - tealium-swift/Core (2.17.0)
-  - tealium-swift/Lifecycle (2.17.0):
+  - BranchSDK (3.12.2)
+  - tealium-swift/Core (2.18.0)
+  - tealium-swift/Lifecycle (2.18.0):
     - tealium-swift/Core
-  - tealium-swift/RemoteCommands (2.17.0):
+  - tealium-swift/RemoteCommands (2.18.0):
     - tealium-swift/Core
   - TealiumBranch (2.0.0):
     - BranchSDK (~> 3.12)
@@ -24,8 +24,8 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  BranchSDK: 7135af6602a105fa6be3ad6c606a7f78b0131b5d
-  tealium-swift: 3dc9ce0f27e22ce99ba2eff69e15050ece5e6ca9
+  BranchSDK: db2c2ffa5b85ad3e202f73393ca794878afd3c52
+  tealium-swift: 891b7d27a4aa3e8b3c7398ac536382526ad215fc
   TealiumBranch: f524d04ff7cf9cda841c47c0b70abb52c28e8ae0
 
 PODFILE CHECKSUM: 4d2517510ec1faa95967a9c9a7c424c2d38ec3cd

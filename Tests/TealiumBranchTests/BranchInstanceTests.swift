@@ -5,31 +5,34 @@
 //  Created by Tyler Rister on 10/20/21.
 //
 
-import XCTest
-@testable import TealiumBranch
-import TealiumRemoteCommands
 import BranchSDK
+import TealiumRemoteCommands
+import XCTest
+
+@testable import TealiumBranch
 
 class BranchInstanceTests: XCTestCase {
 
     let branchInstance = MockBranchInstance()
     var branchCommand: BranchRemoteCommand!
 
-    override func setUp() { 
+    override func setUp() {
         branchCommand = BranchRemoteCommand(branchInstance: branchInstance)
     }
 
     override func tearDown() {
     }
-    
+
     func testBuo() {
-        let expect = expectation(description: "Test Standard Event with Buo Data")
+        let expect = expectation(
+            description: "Test Standard Event with Buo Data"
+        )
         let buoData: [String: Any] = [
             "canonical_identifier": "testIdentifier",
             "canonical_url": "testUrl",
             "title": "testTitle",
             "description": "testDescription",
-            "image_url": "testImageUrl"
+            "image_url": "testImageUrl",
         ]
         let buoObject = BranchUniversalObject()
         buoObject.addProperties(properties: buoData)
@@ -41,7 +44,7 @@ class BranchInstanceTests: XCTestCase {
         expect.fulfill()
         wait(for: [expect], timeout: 5.0)
     }
-    
+
     func testEventProperties() {
         let expect = expectation(description: "Test Event Properties")
         let testEvent = BranchEvent(name: "test_event")
@@ -54,7 +57,7 @@ class BranchInstanceTests: XCTestCase {
             "description": "testDescription",
             "search_query": "testSearchQuery",
             "custom_data_key_1": "testCustomDataKey1",
-            "custom_data_key_2": "testCustomDataKey2"
+            "custom_data_key_2": "testCustomDataKey2",
         ]
         testEvent.addEventProperties(properties: eventProperties)
         XCTAssertEqual("testAffiliation", testEvent.affiliation)
@@ -64,12 +67,18 @@ class BranchInstanceTests: XCTestCase {
         XCTAssertEqual(NSDecimalNumber(string: "14.00"), testEvent.revenue)
         XCTAssertEqual("testDescription", testEvent.eventDescription)
         XCTAssertEqual("testSearchQuery", testEvent.searchQuery)
-        XCTAssertEqual("testCustomDataKey1", testEvent.customData["custom_data_key_1"])
-        XCTAssertEqual("testCustomDataKey2", testEvent.customData["custom_data_key_2"])
+        XCTAssertEqual(
+            "testCustomDataKey1",
+            testEvent.customData["custom_data_key_1"]
+        )
+        XCTAssertEqual(
+            "testCustomDataKey2",
+            testEvent.customData["custom_data_key_2"]
+        )
         expect.fulfill()
         wait(for: [expect], timeout: 5.0)
     }
-    
+
     func testMetadata() {
         let expect = expectation(description: "Test Event Metadata")
         let metadata: [String: Any] = [
@@ -91,7 +100,7 @@ class BranchInstanceTests: XCTestCase {
             "address_postal_code": "testAddressPostalCode",
             "latitude": 7.0,
             "longitude": "8.0",
-            "image_captions": ["testCaption1", "testCaption2", "testCaption3"]
+            "image_captions": ["testCaption1", "testCaption2", "testCaption3"],
         ]
         let metaDataObject = BranchContentMetadata()
         metaDataObject.addMetadataProperties(metadata: metadata)
@@ -99,7 +108,10 @@ class BranchInstanceTests: XCTestCase {
         XCTAssertEqual("testSku", metaDataObject.sku)
         XCTAssertEqual("testProductName", metaDataObject.productName)
         XCTAssertEqual("testProductBrand", metaDataObject.productBrand)
-        XCTAssertEqual(BNCProductCategory.software, metaDataObject.productCategory)
+        XCTAssertEqual(
+            BNCProductCategory.software,
+            metaDataObject.productCategory
+        )
         XCTAssertEqual(BranchCondition.good, metaDataObject.condition)
         XCTAssertEqual("testProductVariant", metaDataObject.productVariant)
         XCTAssertEqual(3.00, metaDataObject.rating)
@@ -110,10 +122,16 @@ class BranchInstanceTests: XCTestCase {
         XCTAssertEqual("testAddressCity", metaDataObject.addressCity)
         XCTAssertEqual("testAddressRegion", metaDataObject.addressRegion)
         XCTAssertEqual("testAddressCountry", metaDataObject.addressCountry)
-        XCTAssertEqual("testAddressPostalCode", metaDataObject.addressPostalCode)
+        XCTAssertEqual(
+            "testAddressPostalCode",
+            metaDataObject.addressPostalCode
+        )
         XCTAssertEqual(7.0, metaDataObject.latitude)
         XCTAssertEqual(8.0, metaDataObject.longitude)
-        XCTAssertEqual(["testCaption1", "testCaption2", "testCaption3"], metaDataObject.imageCaptions)
+        XCTAssertEqual(
+            ["testCaption1", "testCaption2", "testCaption3"],
+            metaDataObject.imageCaptions
+        )
         expect.fulfill()
         wait(for: [expect], timeout: 5.0)
     }

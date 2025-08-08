@@ -5,8 +5,9 @@
 //  Created by Tyler Rister on 10/18/21.
 //
 
-import Foundation
 import BranchSDK
+import Foundation
+
 #if COCOAPODS
     import TealiumSwift
 #else
@@ -15,26 +16,33 @@ import BranchSDK
 #endif
 
 public class BranchRemoteCommand: RemoteCommand {
-    
+
     let branchInstance: BranchCommand
     private let launchOptions: [UIApplication.LaunchOptionsKey: Any]?
-    
+
     override public var version: String? {
         return BranchConstants.version
     }
-    
-    public init(type: RemoteCommandType = .webview,
-                branchInstance: BranchCommand = BranchInstance(),
-                launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) {
+
+    public init(
+        type: RemoteCommandType = .webview,
+        branchInstance: BranchCommand = BranchInstance(),
+        launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
+    ) {
         self.branchInstance = branchInstance
         self.launchOptions = launchOptions
         weak var weakSelf: BranchRemoteCommand?
-        super.init(commandId: BranchConstants.commandId, description: BranchConstants.description, type: type, completion: { response in
-                    guard let payload = response.payload else {
-                        return
-                    }
-                    weakSelf?.processRemoteCommand(with: payload)
-                })
+        super.init(
+            commandId: BranchConstants.commandId,
+            description: BranchConstants.description,
+            type: type,
+            completion: { response in
+                guard let payload = response.payload else {
+                    return
+                }
+                weakSelf?.processRemoteCommand(with: payload)
+            }
+        )
         weakSelf = self
     }
 
@@ -43,87 +51,74 @@ public class BranchRemoteCommand: RemoteCommand {
     }
 
     func processRemoteCommand(with payload: [String: Any]) {
-        guard let command = payload[BranchConstants.commandName] as? String else {
+        guard let command = payload[BranchConstants.commandName] as? String
+        else {
             return
         }
         let commands = command.split(separator: BranchConstants.seperator)
-        let branchCommands = commands.map { $0.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) }
+        let branchCommands = commands.map {
+            $0.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        }
         branchCommands.forEach { command in
-            switch (command) {
+            switch command {
             case BranchConstants.Commands.initialize:
-                branchInstance.initialize(payload: payload, launchOptions: self.launchOptions)
-            // TODO: rename it to set identity to reflect function name
+                branchInstance.initialize(
+                    payload: payload,
+                    launchOptions: self.launchOptions
+                )
             case BranchConstants.Commands.setUserId:
-                guard let id = payload[BranchConstants.EventKeys.userId] as? String else {
+                guard
+                    let id = payload[BranchConstants.EventKeys.userId]
+                        as? String
+                else {
                     break
                 }
                 branchInstance.setIdentity(id: id)
             case BranchConstants.Commands.logout:
                 branchInstance.logout()
             default:
-                if let standardEvent = BranchStandardEvent.eventFromEventName(eventName: command) {
-                    branchInstance.sendEvent(event: standardEvent, parameters: payload)
+                if let standardEvent = Self.eventsMap[command] {
+                    branchInstance.sendEvent(
+                        event: standardEvent,
+                        parameters: payload
+                    )
                 } else {
-                    branchInstance.sendEvent(eventName: command, parameters: payload)
+                    branchInstance.sendEvent(
+                        eventName: command,
+                        parameters: payload
+                    )
                 }
             }
         }
     }
 }
 
-extension BranchStandardEvent {
-    static func eventFromEventName(eventName: String) -> BranchStandardEvent? {
-        if let branchEvent = BranchConstants.StandardEventNames(rawValue: eventName) {
-            switch (branchEvent) {
-            case .achievelevel:
-                return BranchStandardEvent.achieveLevel
-            case .addpaymentinfo:
-                return BranchStandardEvent.addPaymentInfo
-            case .addtocart:
-                return BranchStandardEvent.addToCart
-            case .addtowishlist:
-                return BranchStandardEvent.addToWishlist
-            case .clickad:
-                return BranchStandardEvent.clickAd
-            case .completetutorial:
-                return BranchStandardEvent.completeTutorial
-            case .completeregistration:
-                return BranchStandardEvent.completeRegistration
-            case .initiatepurchase:
-                return BranchStandardEvent.initiatePurchase
-            case .invite:
-                return BranchStandardEvent.invite
-            case .login:
-                return BranchStandardEvent.login
-            case .purchase:
-                return BranchStandardEvent.purchase
-            case .rate:
-                return BranchStandardEvent.rate
-            case .reserve:
-                return BranchStandardEvent.reserve
-            case .search:
-                return BranchStandardEvent.search
-            case .share:
-                return BranchStandardEvent.share
-            case .spendcredits:
-                return BranchStandardEvent.spendCredits
-            case .starttrial:
-                return BranchStandardEvent.startTrial
-            case .subscribe:
-                return BranchStandardEvent.subscribe
-            case .unlockachievement:
-                return BranchStandardEvent.unlockAchievement
-            case .viewad:
-                return BranchStandardEvent.viewAd
-            case .viewcart:
-                return BranchStandardEvent.viewCart
-            case .viewitem:
-                return BranchStandardEvent.viewItem
-            case .viewitems:
-                return BranchStandardEvent.viewItems
-            }
-        } else {
-            return nil
-        }
-    }
+extension BranchRemoteCommand {
+    static let eventsMap: [String: BranchStandardEvent] = [
+        "achievelevel": BranchStandardEvent.achieveLevel,
+        "addpaymentinfo": BranchStandardEvent.addPaymentInfo,
+        "addtocart": BranchStandardEvent.addToCart,
+        "addtowishlist": BranchStandardEvent.addToWishlist,
+        "clickad": BranchStandardEvent.clickAd,
+        "completeregistration": BranchStandardEvent.completeRegistration,
+        "completestream": BranchStandardEvent.completeStream,
+        "completetutorial": BranchStandardEvent.completeTutorial,
+        "initiatepurchase": BranchStandardEvent.initiatePurchase,
+        "initiatestream": BranchStandardEvent.initiateStream,
+        "invite": BranchStandardEvent.invite,
+        "login": BranchStandardEvent.login,
+        "purchase": BranchStandardEvent.purchase,
+        "rate": BranchStandardEvent.rate,
+        "reserve": BranchStandardEvent.reserve,
+        "search": BranchStandardEvent.search,
+        "share": BranchStandardEvent.share,
+        "spendcredits": BranchStandardEvent.spendCredits,
+        "starttrial": BranchStandardEvent.startTrial,
+        "subscribe": BranchStandardEvent.subscribe,
+        "unlockachievement": BranchStandardEvent.unlockAchievement,
+        "viewad": BranchStandardEvent.viewAd,
+        "viewcart": BranchStandardEvent.viewCart,
+        "viewitem": BranchStandardEvent.viewItem,
+        "viewitems": BranchStandardEvent.viewItems,
+    ]
 }
