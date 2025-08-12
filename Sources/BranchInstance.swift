@@ -57,7 +57,10 @@ public class BranchInstance: BranchCommand, TealiumRegistration {
 
         branchInstance.initSession(launchOptions: launchOptions ?? [:])
 
-        _onReady.publish()
+        // Ensure thread safety for publishing, consistent with subscription
+        TealiumQueues.secureMainThreadExecution {
+            self._onReady.publish()
+        }
     }
 
     public func onReady(_ onReady: @escaping () -> Void) {

@@ -25,8 +25,8 @@ public class BranchRemoteCommand: RemoteCommand {
     }
 
     public init(
-        type: RemoteCommandType = .webview,
         branchInstance: BranchCommand = BranchInstance(),
+        type: RemoteCommandType = .webview,
         launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) {
         self.branchInstance = branchInstance
