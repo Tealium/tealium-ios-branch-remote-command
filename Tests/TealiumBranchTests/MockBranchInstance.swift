@@ -16,7 +16,6 @@ class MockBranchInstance: BranchCommand {
     var initializeCount = 0
     var sendEventCount = 0
     var setIdentityCount = 0
-    var setOptOutCount = 0
     var logoutCount = 0
     var onReadyCallCount = 0
 
@@ -47,10 +46,6 @@ class MockBranchInstance: BranchCommand {
         processRemoteCommandCount += 1
     }
 
-    func setOptOut(opt: Bool) {
-        setOptOutCount += 1
-        processRemoteCommandCount += 1
-    }
 
     func logout() {
         logoutCount += 1

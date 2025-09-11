@@ -46,7 +46,6 @@
 		15AE1C4629A4CEC7005DA723 /* BranchInstanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BranchInstanceTests.swift; path = Tests/TealiumBranchTests/BranchInstanceTests.swift; sourceTree = SOURCE_ROOT; };
 		15AE1C4B29A4D1BD005DA723 /* TealiumCore.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:XC939GDC9P:Tealium"; lastKnownFileType = wrapper.xcframework; name = TealiumCore.xcframework; path = Carthage/Build/TealiumCore.xcframework; sourceTree = "<group>"; };
 		15AE1C4C29A4D1BD005DA723 /* TealiumRemoteCommands.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:XC939GDC9P:Tealium"; lastKnownFileType = wrapper.xcframework; name = TealiumRemoteCommands.xcframework; path = Carthage/Build/TealiumRemoteCommands.xcframework; sourceTree = "<group>"; };
-		15AE1C4D29A4D1BD005DA723 /* Branch.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Branch.xcframework; path = Carthage/Build/Branch.xcframework; sourceTree = "<group>"; };
 		9EA5062B2E096BFE0026718B /* BranchSDK.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = BranchSDK.xcframework; path = Carthage/Build/BranchSDK.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -119,7 +118,6 @@
 			isa = PBXGroup;
 			children = (
 				9EA5062B2E096BFE0026718B /* BranchSDK.xcframework */,
-				15AE1C4D29A4D1BD005DA723 /* Branch.xcframework */,
 				15AE1C4B29A4D1BD005DA723 /* TealiumCore.xcframework */,
 				15AE1C4C29A4D1BD005DA723 /* TealiumRemoteCommands.xcframework */,
 			);

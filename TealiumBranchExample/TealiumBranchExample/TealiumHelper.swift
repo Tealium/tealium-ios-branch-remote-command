@@ -46,7 +46,9 @@ final class TealiumHelper {
             print("Branch SDK is initialized and ready!")
         }
         
-        config.addRemoteCommand(branchRemoteCommand!)
+        if let branchRemoteCommand = branchRemoteCommand {
+            config.addRemoteCommand(branchRemoteCommand)
+        }
         
         tealium = Tealium(config: config)
     }

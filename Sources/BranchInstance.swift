@@ -24,7 +24,6 @@ public protocol BranchCommand {
     func sendEvent(eventName: String, parameters: [String: Any])
     func sendEvent(event: BranchStandardEvent, parameters: [String: Any])
     func setIdentity(id: String)
-    func setOptOut(opt: Bool)
     func logout()
 }
 
@@ -51,13 +50,11 @@ public class BranchInstance: BranchCommand, TealiumRegistration {
         branchInstance = Branch.getInstance()
 
         if let logging = logging as? Bool, logging {
-            // TODO: remove deprecated method
-            branchInstance.enableLogging()
+            Branch.enableLogging()
         }
 
         branchInstance.initSession(launchOptions: launchOptions ?? [:])
 
-        // Ensure thread safety for publishing, consistent with subscription
         TealiumQueues.secureMainThreadExecution {
             self._onReady.publish()
         }
@@ -120,10 +117,6 @@ public class BranchInstance: BranchCommand, TealiumRegistration {
         }
     }
 
-    // TODO: remove deprecated method
-    public func setOptOut(opt: Bool) {
-        Branch.setTrackingDisabled(opt)
-    }
 
     public func logout() {
         onReady { [weak self] in
